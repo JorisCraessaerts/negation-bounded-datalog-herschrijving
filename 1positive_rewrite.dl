@@ -3,6 +3,7 @@
 
 // Domein (nodig voor inequalities). We gaan het active domaine opstellen zodat we vervolgens later voor elk element van dit active domain een inequality kunnen opstellen om zo de bestaat niet te simuleren.
 .decl adom(x:number)
+// adom geeft eigenlijk gewoon alle mogelijke nodes terug die onderdeel zijn van een edge (ofwel als eerste element ofwel als tweede element)
 adom(x) :- edge(x, _).
 adom(x) :- edge(_, x).
 
@@ -12,7 +13,7 @@ T1(x, y, x2, y2) :-
     edge(x, y),
     edge(y, z),
     adom(x2), adom(y2),
-    (z != x2 ; x != y2).
+    (z != x2 ; x != y2). // Hier gaan we eigenlijk eisen dat er geen enkel koppel (x2, y2) gelijk mag zijn aan (z, x). Op deze manier gaan we dus eigenlijk forceren dat er geen boog (z, x) mag bestaan
 
 // Simuleer ¬edge(y, z) door (y,z) != (x2,y2)
 .decl T2(x:number, y:number, x2:number, y2:number)
@@ -20,10 +21,10 @@ T2(x, y, x2, y2) :-
     edge(y, x),
     edge(x, z),
     adom(x2), adom(y2),
-    (z != y2; y != x2).
+    (z != y2; y != x2). // De logica is hetzelfde, maar we gaan eisen dat er geen boog (y, z) mogelijk mag zijn.
 
 .decl result_prime(x:number, y:number, x2:number, y2:number)
-result_prime(x, y, x2, y2) :- edge(x, y), edge(y, z), edge(z, x), adom(x2), adom(y2).
+result_prime(x, y, 0, 0) :- edge(x, y), edge(y, z), edge(z, x).
 result_prime(x, y, x2, y2) :- T1(x, y, x2, y2), T2(x, y, x2, y2), x != y.
 
 .decl result_positive_rewritten(x:number, y:number)

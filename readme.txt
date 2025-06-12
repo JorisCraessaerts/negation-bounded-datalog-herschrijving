@@ -14,3 +14,17 @@ Eens men een logfile heeft kan men souffleprof runnen om een mooi overzichtje te
 souffleprof ./benchmarkresults/bounded_negation/bounded_negation_10_nodes_100_edges.log 
 
 https://souffle-lang.github.io/profiler
+
+
+
+souffle --magic-transform=* --generate=transformed.cpp positive_rewrite_domain_reduction.dl -F facts -D output -ppos_rewrite.log -v
+souffle --magic-transform=* positive_rewrite_domain_reduction.dl -F facts -D output -ppos_rewrite.log -v
+Van 24 seconden naar 14 seconden
+
+
+souffleprof ./benchmarkresults/positive_rewrite/positive_rewrite_100_nodes_2000_edges.log 
+=> 1.8 min
+souffleprof ./benchmarkresults/positive_rewirte_domain_reduction/positive_rewrite_domain_reduction_100_nodes_2000_edges.log
+=> 24s sec
+souffleprof ./pos_rewrite_with_Magic_sets_100_nodes_2000_edges.log 
+=> 14 sec
