@@ -6,78 +6,90 @@
 adom(x) :- edge(x, _).
 adom(x) :- edge(_, x).
 
-//  T1 varianten
-// beta {x != z, y != x}, γ  {y != z, z != x}
-.decl T1_1(z:number, x:number, x2:number, y2:number, x_:number, y_:number)
-T1_1(z, x, x2, y2, x_, y_) :-
-    edge(x_, y_), edge(y_, z), adom(x2), adom(y2),
-    x_ != z, y_ != z, (z != x2; x_ != y2).
+// T1-varianten (β  {x != z, y != x}, γ  {y != z, z != x})
+.decl T1(z:number, x:number, x2:number, y2:number, x:number, y:number)
+T1(z, x, x2, y2, x, y) :-
+    edge(x, y),
+    edge(y, z),
+    !edge(z, x),
+    adom(x2), adom(y2),
+    x != z,
+    y != z.
 
-.decl T1_2(z:number, x:number, x2:number, y2:number, x_:number, y_:number)
-T1_2(z, x, x2, y2, x_, y_) :-
-    edge(x_, y_), edge(y_, z), adom(x2), adom(y2),
-    x_ != z, z != x_, (z != x2; x_ != y2).
+T1(z, x, x2, y2, x, y) :-
+    edge(x, y),
+    edge(y, z),
+    !edge(z, x),
+    adom(x2), adom(y2),
+    x != z,
+    z != x.
 
-.decl T1_3(z:number, x:number, x2:number, y2:number, x_:number, y_:number)
-T1_3(z, x, x2, y2, x_, y_) :-
-    edge(x_, y_), edge(y_, z), adom(x2), adom(y2),
-    y_ != x_, y_ != z, (z != x2; x_ != y2).
+T1(z, x, x2, y2, x, y) :-
+    edge(x, y),
+    edge(y, z),
+    !edge(z, x),
+    adom(x2), adom(y2),
+    y != x,
+    y != z.
 
-.decl T1_4(z:number, x:number, x2:number, y2:number, x_:number, y_:number)
-T1_4(z, x, x2, y2, x_, y_) :-
-    edge(x_, y_), edge(y_, z), adom(x2), adom(y2),
-    y_ != x_, z != x_, (z != x2; x_ != y2).
+T1(z, x, x2, y2, x, y) :-
+    edge(x, y),
+    edge(y, z),
+    !edge(z, x),
+    adom(x2), adom(y2),
+    y != x,
+    z != x.
 
-// T2 varianten 
-// χ  {x != y, y != z}, γ  {y != z, z != x}
-.decl T2_1(x1:number, y1:number, y:number, z:number, x:number, y_:number)
-T2_1(x1, y1, y, z, x, y_) :-
-    edge(x, y_), edge(z, x), adom(x1), adom(y1),
-    x != y_, y_ != z, (y_ != x1; z != y1).
+// T2-varianten (χ  {x != y, y != z}, γ  {y != z, z != x})
+.decl T2(x1:number, y1:number, y:number, z:number, x:number, y:number)
+T2(x1, y1, y, z, x, y) :-
+    edge(x, y),
+    !edge(y, z),
+    edge(z, x),
+    adom(x1), adom(y1),
+    x != y,
+    y != z.
 
-.decl T2_2(x1:number, y1:number, y:number, z:number, x:number, y_:number)
-T2_2(x1, y1, y, z, x, y_) :-
-    edge(x, y_), edge(z, x), adom(x1), adom(y1),
-    x != y_, z != x, (y_ != x1; z != y1).
+T2(x1, y1, y, z, x, y) :-
+    edge(x, y),
+    !edge(y, z),
+    edge(z, x),
+    adom(x1), adom(y1),
+    x != y,
+    z != x.
 
-.decl T2_3(x1:number, y1:number, y:number, z:number, x:number, y_:number)
-T2_3(x1, y1, y, z, x, y_) :-
-    edge(x, y_), edge(z, x), adom(x1), adom(y1),
-    y_ != z, y_ != z, (y_ != x1; z != y1).
+T2(x1, y1, y, z, x, y) :-
+    edge(x, y),
+    !edge(y, z),
+    edge(z, x),
+    adom(x1), adom(y1),
+    y != z,
+    y != z.
 
-.decl T2_4(x1:number, y1:number, y:number, z:number, x:number, y_:number)
-T2_4(x1, y1, y, z, x, y_) :-
-    edge(x, y_), edge(z, x), adom(x1), adom(y1),
-    y_ != z, z != x, (y_ != x1; z != y1).
+T2(x1, y1, y, z, x, y) :-
+    edge(x, y),
+    !edge(y, z),
+    edge(z, x),
+    adom(x1), adom(y1),
+    y != z,
+    z != x.
 
 // Output
 .decl output0(x1:number, y1:number, x2:number, y2:number, x:number, y:number)
 output0(x1, y1, x2, y2, x, y) :-
-    edge(x, y), edge(y, z), edge(z, x),
-    adom(x1), adom(y1), adom(x2), adom(y2).
+    edge(x, y),
+    edge(y, z),
+    edge(z, x),
+    adom(x1), adom(y1),
+    adom(x2), adom(y2).
 
-// Hier combineren we alle T1 en T2 variaties om het resultaat te bekomen.
-output0(x1, y1, x2, y2, x, y) :- T1_1(_, _, x2, y2, x, y), T2_1(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_1(_, _, x2, y2, x, y), T2_2(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_1(_, _, x2, y2, x, y), T2_3(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_1(_, _, x2, y2, x, y), T2_4(x1, y1, _, _, x, y), x != y.
+// Combineer alle T1 en T2 combinaties
+output0(x1, y1, x2, y2, x, y) :-
+    T1(_, _, x2, y2, x, y),
+    T2(x1, y1, _, _, x, y),
+    x != y.
 
-output0(x1, y1, x2, y2, x, y) :- T1_2(_, _, x2, y2, x, y), T2_1(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_2(_, _, x2, y2, x, y), T2_2(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_2(_, _, x2, y2, x, y), T2_3(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_2(_, _, x2, y2, x, y), T2_4(x1, y1, _, _, x, y), x != y.
-
-output0(x1, y1, x2, y2, x, y) :- T1_3(_, _, x2, y2, x, y), T2_1(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_3(_, _, x2, y2, x, y), T2_2(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_3(_, _, x2, y2, x, y), T2_3(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_3(_, _, x2, y2, x, y), T2_4(x1, y1, _, _, x, y), x != y.
-
-output0(x1, y1, x2, y2, x, y) :- T1_4(_, _, x2, y2, x, y), T2_1(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_4(_, _, x2, y2, x, y), T2_2(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_4(_, _, x2, y2, x, y), T2_3(x1, y1, _, _, x, y), x != y.
-output0(x1, y1, x2, y2, x, y) :- T1_4(_, _, x2, y2, x, y), T2_4(x1, y1, _, _, x, y), x != y.
-
-// Output projection om enkel x en y terug te geven.
+// Projectie naar eindresultaat
 .decl result_positive_rewritten(x:number, y:number)
 .output result_positive_rewritten
 result_positive_rewritten(x, y) :- output0(_, _, _, _, x, y).
