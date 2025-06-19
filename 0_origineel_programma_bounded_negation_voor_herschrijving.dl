@@ -1,0 +1,18 @@
+// Input: directed edges in a graph
+.decl edge(x:number, y:number)
+.input edge
+
+// T1: Open triangle where edge z->x is missing
+.decl T1(x:number, y:number)
+T1(x, y) :- edge(x, y), edge(y, z), !edge(z, x).
+
+// T2: Open triangle where edge y->z is missing
+.decl T2(x:number, y:number)
+T2(x, y) :- edge(x, y), !edge(y, z), edge(z, x).
+
+// Output: triangle OR two "opposite" open triangles
+.decl result_bounded_negation(x:number, y:number)
+.output result_bounded_negation
+
+result_bounded_negation(x, y) :- edge(x, y), edge(y, z), edge(z, x).
+result_bounded_negation(x, y) :- T1(x, y), T2(x, y), x != y.
