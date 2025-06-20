@@ -6,9 +6,6 @@
 adom(x) :- edge(x, _).
 adom(x) :- edge(_, x).
 
-// T1-varianten (β  {x != z, y != x}, γ  {y != z, z != x})
-.decl T1(z:number, x:number, x2:number, y2:number, x:number, y:number)
-
 
 // Output
 .decl output0(x1:number, y1:number, x2:number, y2:number, x:number, y:number)
@@ -24,14 +21,11 @@ output0(x, y) :-
 	// T1
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     y != x1_1,
     
 	// T2
-	edge(x, y),
     edge(y2, x),
-    adom(x1),
     x != y,
     y != y2.
 
@@ -41,14 +35,11 @@ output0(x, y) :-
 	// T1
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     y != x1_1,
 
 	// T2	
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
     x != y,
     y2 != x.
 
@@ -58,15 +49,11 @@ output0(x, y) :-
 	// T1
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     y != x1_1,
 
 	// T2	
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    y != y2,
     y != y2,
 
     x != y.
@@ -77,14 +64,11 @@ output0(x, y) :-
 	// T1
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     y != x1_1,
 
 	// T2	
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
     y != y2,
     y2 != x,
 
@@ -95,13 +79,9 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
-    x1_1 != x,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
     x != y,
     y != y2.
 
@@ -110,13 +90,10 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     x1_1 != x,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
     x != y,
     y2 != x.
 
@@ -125,14 +102,10 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
     x1_1 != x,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    y != y2,
     y != y2,
 
     x != y.
@@ -142,13 +115,9 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     x != x1_1,
-    x1_1 != x,
 
-	edge(x, y),
     edge(y2, x),
-    adom(x1),
     y != y2,
     y2 != x,
 
@@ -159,14 +128,10 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     y != x1_1,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    x != y,
     y != y2.
 
 
@@ -174,14 +139,10 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     y != x1_1,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    x != y,
     y2 != x.
 
 
@@ -189,48 +150,33 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     y != x1_1,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    y != y2,
-    y != y2,
-
-    x != y.
+    y != y2.
 
 
 // T1_3 T2_4
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     y != x1_1,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
     y != y2,
-    y2 != x,
-
-    x != y.
+    y2 != x.
 
 
 // T1_4 T2_1
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     x1_1 != x,
 
-    edge(x, y),
     edge(y2, x),
-    adom(x1),
-    x != y,
     y != y2.
 
 
@@ -238,14 +184,10 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     x1_1 != x,
 
-   	edge(x, y),
     edge(y2, x),
-    adom(x1),
-    x != y,
     y2 != x.
 
 
@@ -253,34 +195,23 @@ output0(x, y) :-
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     x1_1 != x,
 
-   	edge(x, y),
     edge(y2, x),
-    adom(x1),
-    y != y2,
-    y != y2,
-
-    x != y.
+    y != y2.
 
 
 // T1_4 T2_4
 output0(x, y) :-
     edge(x, y),
     edge(y, x1_1),
-    adom(y2_1),
     y != x,
     x1_1 != x,
 
-   	edge(x, y),
     edge(y2, x),
-    adom(x1),
     y != y2,
-    y2 != x,
-
-    x != y.
+    y2 != x.
 
 
 // Projectie naar eindresultaat
