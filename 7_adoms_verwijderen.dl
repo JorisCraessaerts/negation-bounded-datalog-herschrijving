@@ -1,14 +1,9 @@
 .decl edge(x:number, y:number)
 .input edge
 
-// Active domain
-.decl adom(x:number)
-adom(x) :- edge(x, _).
-adom(x) :- edge(_, x).
-
 
 // Output
-.decl output0(x1:number, y1:number, x2:number, y2:number, x:number, y:number)
+.decl output0(x:number, y:number)
 output0(x, y) :-
     edge(x, y),
     edge(y, z),
