@@ -1,34 +1,23 @@
 #!/bin/bash
 
 # --- CONFIGURATIE ---
-
-# Definieer de projectmappen en het type data dat ze nodig hebben.
-# Formaat: "MAPNAAM:TYPE"
-# TYPE kan 'edge' of 'rs' zijn.
 PROJECT_DIRS=(
     "example 1 uit paper:edge"
     "Example 2:rs"
 )
-
-# Definieer de datasets die je wilt genereren en testen.
-# Formaat: "NODES DENSITY"
 DATASETS=(
     "50 0.1"
     "100 0.05"
     "500 0.02"
     "1000 0.01"
 )
-
-# Timeout in seconden (5 minuten = 300 seconden)
-TIMEOUT_SECONDS=300
-
+TIMEOUT_SECONDS=600
 # --- EINDE CONFIGURATIE ---
 
-echo "🚀 Starten van de volledige benchmark-cyclus..."
+echo "🚀 Starten van de volledige benchmark-cyclus (met .log en .html generatie)..."
 
 # Loop over elke projectmap
 for project_config in "${PROJECT_DIRS[@]}"; do
-    # Splits de configuratie op in mapnaam en data-type
     IFS=':' read -r project_dir data_type <<< "$project_config"
 
     if [ ! -d "$project_dir" ]; then
@@ -41,7 +30,6 @@ for project_config in "${PROJECT_DIRS[@]}"; do
     echo "📁 Project: $project_dir"
     echo "============================================================"
 
-    # Vind dynamisch alle .dl-bestanden in de projectmap
     mapfile -t programs < <(find "$project_dir" -maxdepth 1 -name "*.dl" | sort)
     if [ ${#programs[@]} -eq 0 ]; then
         echo "🤷 Geen .dl-bestanden gevonden in '$project_dir', wordt overgeslagen."
@@ -63,27 +51,39 @@ for project_config in "${PROJECT_DIRS[@]}"; do
         echo "📦 Verwerken van dataset: $dataset_name"
         echo "------------------------------------------------------------"
 
-        # Stap 1: Genereer de data voor deze specifieke run
-        echo "  -> Genereren van data..."
-        python3 generate_data.py --nodes "$nodes" --density "$density" --type "$data_type" --output_dir "$facts_dir_for_run"
+        if [ ! -d "$facts_dir_for_run" ]; then
+            echo "  -> 📂 Data niet gevonden. Genereren van nieuwe data in '$facts_dir_for_run'..."
+            python3 generate_data.py --nodes "$nodes" --density "$density" --type "$data_type" --output_dir "$facts_dir_for_run"
+        else
+            echo "  -> ✅ Data reeds gevonden. Hergebruiken van bestaande data uit '$facts_dir_for_run'."
+        fi
 
-        # Stap 2: Loop over elk gevonden programma
+        # Loop over elk gevonden programma
         for program_path in "${programs[@]}"; do
             program_name=$(basename "$program_path" .dl)
             
             output_run_dir="${output_base_dir}/${program_name}/${dataset_name}"
             benchmark_run_dir="${benchmarks_base_dir}/${program_name}/${dataset_name}"
-            profile_file="${benchmark_run_dir}/profile_report.html"
+            
+            # Definieer nu zowel het .log als het .html bestand
+            log_file="${benchmark_run_dir}/profile_report.log"
+            html_file="${benchmark_run_dir}/profile_report.html"
 
             echo "  -> 🔥 Benchmarken van '$program_name'..."
             
-            # Maak de outputmappen aan
-            mkdir -p "$output_run_dir"
-            mkdir -p "$benchmark_run_dir"
+            mkdir -p "$output_run_dir" "$benchmark_run_dir"
             
-            # Stap 3: Voer Soufflé uit met timeout en profiling
-            if timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D "$output_run_dir" -p "$profile_file" "$program_path"; then
-                echo "     ✅ Voltooid."
+            # Stap 3: Voer Soufflé uit en genereer het .log bestand
+            if timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D "$output_run_dir" -p "$log_file" "$program_path"; then
+                echo "     ✅ Soufflé voltooid. Logbestand aangemaakt in '$log_file'."
+                
+                # Stap 4: Genereer het HTML rapport van het logbestand
+                if souffleprof -o "$html_file" "$log_file" > /dev/null 2>&1; then
+                    echo "     ✅ HTML-rapport aangemaakt in '$html_file'."
+                else
+                    echo "     ⚠️ Kon geen HTML-rapport genereren van het logbestand."
+                fi
+
             else
                 exit_status=$?
                 if [ $exit_status -eq 124 ]; then
