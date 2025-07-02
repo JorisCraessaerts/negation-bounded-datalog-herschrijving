@@ -2,7 +2,7 @@
 
 # --- CONFIGURATIE ---
 PROJECT_DIRS=(
-    "example 1 uit paper:edge"
+    "Example 1 uit paper:edge"
     "Example 2:rs"
 )
 DATASETS=(
@@ -11,7 +11,7 @@ DATASETS=(
     "500 0.02"
     "1000 0.01"
 )
-TIMEOUT_SECONDS=600
+TIMEOUT_SECONDS=120
 # --- EINDE CONFIGURATIE ---
 
 echo "🚀 Starten van de volledige benchmark-cyclus (met .log en .html generatie)..."
@@ -77,12 +77,12 @@ for project_config in "${PROJECT_DIRS[@]}"; do
             if timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D "$output_run_dir" -p "$log_file" "$program_path"; then
                 echo "     ✅ Soufflé voltooid. Logbestand aangemaakt in '$log_file'."
                 
-                # Stap 4: Genereer het HTML rapport van het logbestand
-                if souffleprof -o "$html_file" "$log_file" > /dev/null 2>&1; then
-                    echo "     ✅ HTML-rapport aangemaakt in '$html_file'."
-                else
-                    echo "     ⚠️ Kon geen HTML-rapport genereren van het logbestand."
-                fi
+                # # Stap 4: Genereer het HTML rapport van het logbestand
+                # if souffleprof -o "$html_file" "$log_file" > /dev/null 2>&1; then
+                #     echo "     ✅ HTML-rapport aangemaakt in '$html_file'."
+                # else
+                #     echo "     ⚠️ Kon geen HTML-rapport genereren van het logbestand."
+                # fi
 
             else
                 exit_status=$?
