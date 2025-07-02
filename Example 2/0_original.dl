@@ -1,10 +1,30 @@
-% Input: R(Y,X), S(Y,X)
-% Output: Target(X)
+// Input relaties
+.decl R(source: symbol, target: symbol)
+.decl S(source: symbol, target: symbol)
 
-% Intermediate rules
-HasR_NotS(x, y) :- R(y, x), not S(y, x).
-HasS_NotR(x, z) :- S(z, x), not R(z, x).
+// Intermediate (hulp) relaties
+.decl HasR_NotS(target: symbol, source: symbol)
+.decl HasS_NotR(target: symbol, source: symbol)
 
-% Output rules
+// Output relatie
+.decl Target(target_node: symbol)
+
+// Input/Output
+// Laad data uit .facts bestanden (tab-gescheiden).
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+// Schrijf de resultaten naar een .csv bestand.
+.output Target(filename="Target.csv")
+
+
+// Datalog Regels
+HasR_NotS(x, y) :- R(y, x), !S(y, x).
+HasS_NotR(x, z) :- S(z, x), !R(z, x).
+
+// Output regels die het eindresultaat berekenen.
+// 1. De 'directe' positieve regel.
 Target(x) :- R(y, x), S(y, x).
+
+// 2. De 'indirecte' regel die de hulp-regels combineert.
 Target(x) :- HasR_NotS(x, y), HasS_NotR(x, z).
