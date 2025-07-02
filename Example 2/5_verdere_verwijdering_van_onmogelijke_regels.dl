@@ -1,0 +1,34 @@
+// Declaraties
+.decl R(val1: symbol, val2: symbol)
+.decl S(val1: symbol, val2: symbol)
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+.decl Adom(val: symbol)
+.decl Target_p(prefix1: symbol, prefix2: symbol, prefix3: symbol, prefix4: symbol, target_node: symbol)
+.decl Target_rewritten(target_node: symbol)
+.output Target_rewritten(filename="Target.csv")
+
+
+// Implementatie
+
+// Active domain
+Adom(v) :- R(v, _).
+Adom(v) :- R(_, v).
+Adom(v) :- S(v, _).
+Adom(v) :- S(_, v).
+
+
+// Enkel de eerste, Target_p regel blijft over.
+Target_p(x1, y1, x2, y2, x) :-
+    R(x1, y1), Adom(x2), Adom(y2),
+    S(x2, y2), Adom(x1), Adom(y1),
+    x = y1,
+    y1 = y2,
+    x1 != x2. // De check x2 != x1 is redundant en hier weggelaten.
+
+
+// Finale output-regels
+Target_rewritten(x) :- Target_p(_, _, _, _, x).
+
+Target_rewritten(x) :- R(y, x), S(y, x).

@@ -1,0 +1,22 @@
+// Declaraties
+.decl R(val1: symbol, val2: symbol)
+.decl S(val1: symbol, val2: symbol)
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+.decl Target_rewritten(target_node: symbol)
+.output Target_rewritten(filename="Target.csv")
+
+
+// Implementatie
+
+// Het indirecte pad is nu gereduceerd tot één enkele regel
+Target_rewritten(y1) :-
+    R(x1, y1),
+    S(x2, y1),
+    x1 != x2.
+
+// Het directe, positieve pad blijft ongewijzigd.
+Target_rewritten(x) :-
+    R(y, x),
+    S(y, x).

@@ -1,0 +1,60 @@
+// Declaraties
+.decl R(val1: symbol, val2: symbol)
+.decl S(val1: symbol, val2: symbol)
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+.decl Adom(val: symbol)
+.decl HasR_NotS_p(prefix1: symbol, prefix2: symbol, prefix3: symbol, prefix4: symbol, original_x: symbol, original_y: symbol)
+.decl HasS_NotR_p(prefix1: symbol, prefix2: symbol, prefix3: symbol, prefix4: symbol, original_x: symbol, original_z: symbol)
+.decl Target_p(prefix1: symbol, prefix2: symbol, prefix3: symbol, prefix4: symbol, target_node: symbol)
+
+.decl Target_rewritten(target_node: symbol)
+.output Target_rewritten(filename="Target.csv")
+
+
+// Implementatie
+
+// Active Domain
+Adom(v) :- R(v, _).
+Adom(v) :- R(_, v).
+Adom(v) :- S(v, _).
+Adom(v) :- S(_, v).
+
+
+// IDB regels
+HasR_NotS_p(y, x, x2, y2, x, y) :-
+    R(y, x),
+    Adom(x2), Adom(y2).
+
+HasS_NotR_p(x1, y1, z, x, x, z) :-
+    S(z, x),
+    Adom(x1), Adom(y1).
+
+
+// Combinatieregels (conjuncties)
+Target_p(x1, y1, x2, y2, x) :-
+    HasR_NotS_p(x1, y1, x2, y2, x, y),
+    HasS_NotR_p(x1, y1, x2, y2, x, z),
+    y != x2, z != x1.
+
+Target_p(x1, y1, x2, y2, x) :-
+    HasR_NotS_p(x1, y1, x2, y2, x, y),
+    HasS_NotR_p(x1, y1, x2, y2, x, z),
+    y != x2, x != y1.
+
+Target_p(x1, y1, x2, y2, x) :-
+    HasR_NotS_p(x1, y1, x2, y2, x, y),
+    HasS_NotR_p(x1, y1, x2, y2, x, z),
+    x != y2, z != x1.
+
+Target_p(x1, y1, x2, y2, x) :-
+    HasR_NotS_p(x1, y1, x2, y2, x, y),
+    HasS_NotR_p(x1, y1, x2, y2, x, z),
+    x != y2, x != y1.
+
+
+// Outputregels
+Target_rewritten(x) :- Target_p(_, _, _, _, x).
+
+Target_rewritten(x) :- R(y, x), S(y, x).

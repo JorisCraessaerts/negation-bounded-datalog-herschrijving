@@ -1,0 +1,60 @@
+// Declaraties
+.decl R(val1: symbol, val2: symbol)
+.decl S(val1: symbol, val2: symbol)
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+.decl Adom(val: symbol)
+// De tussenliggende Has..._p declaraties zijn nu weg. Deze zijn rechtstreeks in de Target_p geïntegreerd door unfolding
+.decl Target_p(prefix1: symbol, prefix2: symbol, prefix3: symbol, prefix4: symbol, target_node: symbol)
+.decl Target_rewritten(target_node: symbol)
+.output Target_rewritten(filename="Target.csv")
+
+
+// Implementatie
+
+// Active Domain
+Adom(v) :- R(v, _).
+Adom(v) :- R(_, v).
+Adom(v) :- S(v, _).
+Adom(v) :- S(_, v).
+
+
+// De vier Target_p regels, nu na unfolding.
+// Regel 1
+Target_p(x1, y1, x2, y2, y1) :-
+    R(x1, y1), Adom(x2), Adom(y2),  // Ingevulde body van HasR_NotS_p
+    S(x2, y2), Adom(x1), Adom(y1),  // Ingevulde body van HasS_NotR_p
+    y1 = y2,                       // We weten dat y1 en y2 eigenlijk gelijk zijn aan aan elkaar, want deze zijn gelijk aan de x die we zoeken.
+    x1 != x2,                      // Originele inequality (y!=x2 -> x1!=x2)
+    x2 != x1.                      // Originele inequality (z!=x1 -> x2!=x1)
+
+// Regel 2
+Target_p(x1, y1, x2, y2, y1) :-
+    R(x1, y1), Adom(x2), Adom(y2),
+    S(x2, y2), Adom(x1), Adom(y1),
+    y1 = y2,
+    x1 != x2,                      // Originele inequality (y!=x2 -> x1!=x2)
+    y1 != y1.                      // Originele inequality (x!=y1 -> y1!=y1)
+
+// Regel 3
+Target_p(x1, y1, x2, y2, y1) :-
+    R(x1, y1), Adom(x2), Adom(y2),
+    S(x2, y2), Adom(x1), Adom(y1),
+    y1 = y2,
+    y1 != y2,                      // Originele inequality (x!=y2 -> y1!=y2)
+    x2 != x1.                      // Originele inequality (z!=x1 -> x2!=x1)
+
+// Regel 4
+Target_p(x1, y1, x2, y2, y1) :-
+    R(x1, y1), Adom(x2), Adom(y2),
+    S(x2, y2), Adom(x1), Adom(y1),
+    y1 = y2,
+    y1 != y2,                      // Originele inequality (x!=y2 -> y1!=y2)
+    y1 != y1.                      // Originele inequality (x!=y1 -> y1!=y1)
+
+
+// Finale output-regels
+Target_rewritten(x) :- Target_p(_, _, _, _, x).
+
+Target_rewritten(x) :- R(y, x), S(y, x).

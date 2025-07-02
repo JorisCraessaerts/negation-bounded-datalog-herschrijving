@@ -1,0 +1,10 @@
+% Input: R(Y,X), S(Y,X)
+% Output: Target(X)
+
+% Intermediate rules
+HasR_NotS(x, y) :- R(y, x), not S(y, x).
+HasS_NotR(x, z) :- S(z, x), not R(z, x).
+
+% Output rules
+Target(x) :- R(y, x), S(y, x).
+Target(x) :- HasR_NotS(x, y), HasS_NotR(x, z).
