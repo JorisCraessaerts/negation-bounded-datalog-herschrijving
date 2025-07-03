@@ -1,0 +1,28 @@
+// Input relaties
+.decl R(source: symbol, target: symbol)
+.decl S(source: symbol, target: symbol)
+
+// Intermediate (hulp) relaties
+.decl HasR_NotS(target: symbol, source: symbol)
+.decl HasS_NotR(target: symbol, source: symbol)
+
+// Output relatie
+.decl Target(target_node: symbol)
+
+// Input/Output
+// Laad data uit .facts bestanden (tab-gescheiden).
+.input R(filename="R.facts")
+.input S(filename="S.facts")
+
+// Schrijf de resultaten naar een .csv bestand.
+.output Target(filename="Target.csv")
+
+// Output regels die het eindresultaat berekenen.
+// 1. De 'directe' positieve regel.
+Target(x) :- R(y, x), S(y, x).
+
+// 2. De 'indirecte' regel die de hulp-regels combineert.
+Target(x) :- 
+	R(y, x), !S(y, x),
+	S(z, x), !R(z, x).
+	//HasR_NotS(x, y), HasS_NotR(x, z).

@@ -1,0 +1,97 @@
+SouffleProf Origineel programma
+    runtime  loadtime  savetime relations     rules    tuples generated
+      .016s     .009s     .000s         5         4         40.9K
+
+Slowest relations to fully evaluate
+ ----- Relation Table -----
+   TOT_T  NREC_T   REC_T  COPY_T  LOAD_T  SAVE_T  TUPLES   READS   TUP/s    ID NAME
+
+   .002s   .002s   .000s   .000s   .000s   .000s   9.90K   9.93K   3.86M    R2 HasS_NotR
+   .002s   .002s   .000s   .000s   .000s   .000s   9.93K       0   3.95M    R1 HasR_NotS
+   .002s   .002s   .000s   .000s   .000s   .000s   1.00K       0    431K    R5 Target
+Slowest rules to fully evaluate
+  ----- Rule Table -----
+   TOT_T  NREC_T   REC_T  TUPLES   TUP/s      ID RELATION
+
+   .002s   .002s   .000s   9.90K 3887.36    N2.1 HasS_NotR
+   .002s   .002s   .000s   9.93K 3986.76    N1.1 HasR_NotS
+   .001s   .001s   .000s     892 585.686    N5.1 Target
+  cpu total
+      .020s
+   442%                     
+   398%           *         
+   354%           *         
+   310%           *         
+   265%           *  *      
+   221%           *  *      
+   177%      *    *  *      
+   132%      *    *  *      
+    88%      *    *  *  *** 
+    44%      *    *  *  *** 
+        --------------------
+
+
+
+SouffleProf 6_adoms_verwijderen
+    runtime  loadtime  savetime relations     rules    tuples generated
+      .016s     .010s     .000s         3         2         21.0K
+
+Slowest relations to fully evaluate
+ ----- Relation Table -----
+   TOT_T  NREC_T   REC_T  COPY_T  LOAD_T  SAVE_T  TUPLES   READS   TUP/s    ID NAME
+
+   .005s   .005s   .000s   .000s   .000s   .000s   1.00K       0    198K    R3 Target_rewritten
+   .000s   .000s   .000s   .000s   .005s   .000s   10.0K   10.0K   10.0K    R2 S
+   .000s   .000s   .000s   .000s   .005s   .000s   10.0K       0   10.0K    R1 R
+Slowest rules to fully evaluate
+  ----- Rule Table -----
+   TOT_T  NREC_T   REC_T  TUPLES   TUP/s      ID RELATION
+
+   .003s   .003s   .000s   1.00K 275.786    N3.2 Target_rewritten
+   .001s   .001s   .000s       0       0    N3.1 Target_rewritten
+
+  cpu total
+      .019s
+   313%                   
+   281%                  *
+   250%                  *
+   219%                  *
+   187%       +          *
+   156%       +          *
+   125%       +          *
+    93%       * *  *   * *
+    62%       * *  *   * *
+    31%       * *  *   * *
+
+
+SouffleProf 7_update
+    runtime  loadtime  savetime relations     rules    tuples generated
+      .021s     .011s     .000s         3         2         21.0K
+
+Slowest relations to fully evaluate
+ ----- Relation Table -----
+   TOT_T  NREC_T   REC_T  COPY_T  LOAD_T  SAVE_T  TUPLES   READS   TUP/s    ID NAME
+
+   .009s   .009s   .000s   .000s   .000s   .000s   1.00K       0    110K    R3 Target
+   .000s   .000s   .000s   .000s   .005s   .000s   10.0K   20.1K   10.0K    R2 S
+   .000s   .000s   .000s   .000s   .006s   .000s   10.0K   10.0K   10.0K    R1 R
+Slowest rules to fully evaluate
+  ----- Rule Table -----
+   TOT_T  NREC_T   REC_T  TUPLES   TUP/s      ID RELATION
+
+   .006s   .006s   .000s     892  129.07    N3.1 Target
+   .002s   .002s   .000s     108 51.3552    N3.2 Target
+
+  cpu total
+      .025s
+   192%                         
+   173%                         
+   154%                         
+   134%                         
+   115%                         
+    96%       * *  *  * *     **
+    77%       * *  *  * *     **
+    57%       * *  *  * *     **
+    38%       * *  *  * *     **
+    19%       * *  *  * *     **
+        ------------------------

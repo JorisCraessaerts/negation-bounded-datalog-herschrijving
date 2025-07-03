@@ -2,8 +2,8 @@
 
 # --- CONFIGURATIE ---
 PROJECT_DIRS=(
-    "Example 1:edge"
-    "Example 2:rs"
+    "Example_1:edge"
+    "Example_2:rs"
 )
 DATASETS=(
     "50 0.1"
@@ -11,7 +11,7 @@ DATASETS=(
     "500 0.02"
     "1000 0.01"
 )
-TIMEOUT_SECONDS=120 
+TIMEOUT_SECONDS=
 # --- EINDE CONFIGURATIE ---
 
 echo "Starten van de volledige benchmark-cyclus (met .log en .html generatie)..."
