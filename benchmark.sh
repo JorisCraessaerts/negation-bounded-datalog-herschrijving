@@ -2,7 +2,7 @@
 
 # --- CONFIGURATIE ---
 PROJECT_DIRS=(
-    "Example 1 uit paper:edge"
+    "Example 1:edge"
     "Example 2:rs"
 )
 DATASETS=(
