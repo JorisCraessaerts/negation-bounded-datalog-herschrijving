@@ -19,8 +19,12 @@
 
 
 // Datalog Regels
-HasR_NotS(x, y) :- R(y, x), !S(y, x).
-HasS_NotR(x, z) :- S(z, x), !R(z, x).
+HasR_NotS(x, y) :- R(y, x), !S(y, x). // Extra S(y, x) feiten hier gaan ervoor zorgen dat de HasR_NotS(x, y) regel gaat falen. Maar dit zorgt er tegelijk voor dat de directe regel Target(x) :- R(y, x), S(y, x). wel gaat lukken waardoor er nog steeds extra output gegenereerd wordt.
+HasS_NotR(x, z) :- S(z, x), !R(z, x). // Extra R(z, x) feiten hier gaan ervoor zorgen dat de HasS_NotR(x, z) regel gaat falen. Tegelijk gaat hierdoor wel de tweede directe Target(x) :- R(y, x), S(y, x). regel op dat moment wel lukken, waardoor er nog steeds extra output gegenereerd wordt en het programma dus monotoon is.
+
+// Het programma is negation bounded: In de directe positieve regel is er geen negatie.com
+// De combinatieregel is echter afhankelijk van maximum twee regels (HasR_NotS en HasS_NotR) om tot een feit te bekomen. Elk van deze HasR_NotS en HasS_NotR heeft één negatie, dus het maximum aantal negaties dat nodig zal zijn om output te kunnen afleiden zal altijd 2 zijn.
+
 
 // Output regels die het eindresultaat berekenen.
 // 1. De 'directe' positieve regel.
