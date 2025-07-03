@@ -1,0 +1,44 @@
+.decl edge(x:number, y:number)
+.input edge
+
+// Active domain
+.decl adom(x:number)
+adom(x) :- edge(x, _).
+adom(x) :- edge(_, x).
+
+// Output
+.decl result_positive_rewritten(x:number, y:number)
+.output result_positive_rewritten
+
+// Implementatie
+
+// De gewone triangle case blijft hetzelfde.
+result_positive_rewritten(x, y) :-
+    edge(x, y),
+    edge(y, z),
+    edge(z, x).
+	
+
+// T1-variant 1 (x!=z, y!=z) gecombineerd met de 4 T2-varianten
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, y!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, y!=z1, x!=y, z2!=x.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, y!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, y!=z1, x!=y, y!=z2, z2!=x.
+
+// T1-variant 2 (x!=z, z!=x) gecombineerd met de 4 T2-varianten
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, x!=y, z2!=x.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), x!=z1, x!=y, y!=z2, z2!=x.
+
+// T1-variant 3 (y!=x, y!=z) gecombineerd met de 4 T2-varianten
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, y!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, y!=z1, x!=y, z2!=x.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, y!=z1, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, y!=z1, x!=y, y!=z2, z2!=x.
+
+// T1-variant 4 (y!=x, z!=x) gecombineerd met de 4 T2-varianten
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, z1!=x, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, z1!=x, x!=y, z2!=x.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, z1!=x, x!=y, y!=z2.
+result_positive_rewritten(x, y) :- edge(x, y), edge(y, z1), edge(z2, x), adom(x1), adom(y1), adom(x2), adom(y2), y!=x, z1!=x, x!=y, y!=z2, z2!=x.

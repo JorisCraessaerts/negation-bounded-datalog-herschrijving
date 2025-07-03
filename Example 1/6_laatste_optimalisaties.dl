@@ -1,0 +1,21 @@
+.decl edge(x:number, y:number)
+.input edge(filename="edge.facts")
+
+.decl result_positive_rewritten(x:number, y:number)
+.output result_positive_rewritten
+
+// Implementatie
+
+// Pad 1: De originele positieve regel (een gesloten driehoek).
+result_positive_rewritten(x, y) :-
+    edge(x, y),
+    edge(y, z),
+    edge(z, x).
+
+// Pad 2: De indirecte regel, geoptimaliseerd
+result_positive_rewritten(x, y) :-
+    edge(x, y),
+    edge(y, z1),
+    edge(z2, x),
+    x != y,
+    z1 != z2.
