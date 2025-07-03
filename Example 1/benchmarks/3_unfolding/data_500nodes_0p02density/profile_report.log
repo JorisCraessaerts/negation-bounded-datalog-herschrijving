@@ -1,0 +1,555 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example 1/3_unfolding.dl",
+    "fact-dir": "Example 1/facts/data_500nodes_0p02density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example 1/output/3_unfolding/data_500nodes_0p02density",
+    "profile": "Example 1/benchmarks/3_unfolding/data_500nodes_0p02density/profile_report.log",
+    "relationCount": "3",
+    "ruleCount": "14",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "+disconnected0": {
+     "maxRSS": {
+      "post": 11520,
+      "pre": 11520
+     },
+     "non-recursive-rule": {
+      "+disconnected0() :- \n   edge(_,_).": {
+       "maxRSS": {
+        "post": 11520,
+        "pre": 11520
+       },
+       "num-tuples": 1,
+       "runtime": { "start": 1751544552131268, "end": 1751544552131277},
+       "source-locator": "3_unfolding.dl [6:1-6:23]"
+      }
+     },
+     "num-tuples": 1,
+     "reads": 0,
+     "runtime": { "start": 1751544552131264, "end": 1751544552131291},
+     "source-locator": " [1:1-1:1]"
+    },
+    "edge": {
+     "loadtime": { "start": 1751544552126595, "end": 1751544552131249},
+     "num-tuples": 4958,
+     "reads": 45049,
+     "source-locator": "3_unfolding.dl [1:7-1:11]"
+    },
+    "result_positive_rewritten": {
+     "maxRSS": {
+      "post": 11904,
+      "pre": 11520
+     },
+     "non-recursive-rule": {
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11520
+       },
+       "num-tuples": 802,
+       "runtime": { "start": 1751544552131301, "end": 1751544552137517},
+       "source-locator": "3_unfolding.dl [16:1-19:16]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11648
+       },
+       "num-tuples": 4156,
+       "runtime": { "start": 1751544552137540, "end": 1751544552141088},
+       "source-locator": "3_unfolding.dl [31:1-33:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552141107, "end": 1751544552143998},
+       "source-locator": "3_unfolding.dl [34:1-36:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552144019, "end": 1751544552147160},
+       "source-locator": "3_unfolding.dl [40:1-42:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552147174, "end": 1751544552150008},
+       "source-locator": "3_unfolding.dl [45:1-47:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552150024, "end": 1751544552152808},
+       "source-locator": "3_unfolding.dl [48:1-50:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552152821, "end": 1751544552155538},
+       "source-locator": "3_unfolding.dl [54:1-56:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552155553, "end": 1751544552158076},
+       "source-locator": "3_unfolding.dl [59:1-61:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552158089, "end": 1751544552160805},
+       "source-locator": "3_unfolding.dl [62:1-64:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11904,
+        "pre": 11904
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552160828, "end": 1751544552163839},
+       "source-locator": "3_unfolding.dl [68:1-70:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11904,
+        "pre": 11904
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552163860, "end": 1751544552166487},
+       "source-locator": "3_unfolding.dl [73:1-75:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11904,
+        "pre": 11904
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552166501, "end": 1751544552169943},
+       "source-locator": "3_unfolding.dl [76:1-78:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11904,
+        "pre": 11904
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751544552169988, "end": 1751544552173397},
+       "source-locator": "3_unfolding.dl [82:1-84:41]"
+      }
+     },
+     "num-tuples": 4958,
+     "reads": 0,
+     "runtime": { "start": 1751544552131299, "end": 1751544552173428},
+     "savetime": { "start": 1751544552173447, "end": 1751544552174428},
+     "source-locator": "3_unfolding.dl [10:7-10:32]"
+    }
+   },
+   "runtime": { "start": 1751544552126576, "end": 1751544552174506},
+   "starttime": { "time": 1751544552125120},
+   "usage": {
+    "timepoint": {
+     "1751544552125284": {
+      "maxRSS": 10880,
+      "systemtime": 14842,
+      "usertime": 538286
+     },
+     "1751544552126596": {
+      "maxRSS": 11008,
+      "systemtime": 14852,
+      "usertime": 538668
+     },
+     "1751544552126907": {
+      "maxRSS": 11008,
+      "systemtime": 14856,
+      "usertime": 538785
+     },
+     "1751544552127978": {
+      "maxRSS": 11136,
+      "systemtime": 14869,
+      "usertime": 539279
+     },
+     "1751544552129047": {
+      "maxRSS": 11264,
+      "systemtime": 14869,
+      "usertime": 539456
+     },
+     "1751544552130112": {
+      "maxRSS": 11392,
+      "systemtime": 14869,
+      "usertime": 540470
+     },
+     "1751544552131178": {
+      "maxRSS": 11520,
+      "systemtime": 14869,
+      "usertime": 541485
+     },
+     "1751544552131272": {
+      "maxRSS": 11520,
+      "systemtime": 14869,
+      "usertime": 542035
+     },
+     "1751544552131306": {
+      "maxRSS": 11520,
+      "systemtime": 14869,
+      "usertime": 542080
+     },
+     "1751544552132369": {
+      "maxRSS": 11648,
+      "systemtime": 14870,
+      "usertime": 542268
+     },
+     "1751544552133435": {
+      "maxRSS": 11648,
+      "systemtime": 14870,
+      "usertime": 542574
+     },
+     "1751544552134502": {
+      "maxRSS": 11648,
+      "systemtime": 14870,
+      "usertime": 543591
+     },
+     "1751544552135577": {
+      "maxRSS": 11648,
+      "systemtime": 14870,
+      "usertime": 544615
+     },
+     "1751544552136644": {
+      "maxRSS": 11648,
+      "systemtime": 14870,
+      "usertime": 545631
+     },
+     "1751544552137551": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 547440
+     },
+     "1751544552138649": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 547653
+     },
+     "1751544552139714": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 548667
+     },
+     "1751544552140750": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 550684
+     },
+     "1751544552141117": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 551079
+     },
+     "1751544552142187": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 551728
+     },
+     "1751544552143271": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 552759
+     },
+     "1751544552144034": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 554063
+     },
+     "1751544552145100": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 554798
+     },
+     "1751544552146162": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 555809
+     },
+     "1751544552147182": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 557261
+     },
+     "1751544552148243": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 557836
+     },
+     "1751544552149304": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 558846
+     },
+     "1751544552150032": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 560141
+     },
+     "1751544552151092": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 560864
+     },
+     "1751544552152156": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 561879
+     },
+     "1751544552152852": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 562991
+     },
+     "1751544552153940": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 563945
+     },
+     "1751544552155014": {
+      "maxRSS": 11776,
+      "systemtime": 14876,
+      "usertime": 564968
+     },
+     "1751544552155575": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 565799
+     },
+     "1751544552156661": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 566019
+     },
+     "1751544552157753": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 568053
+     },
+     "1751544552158102": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 568426
+     },
+     "1751544552159191": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 569112
+     },
+     "1751544552160286": {
+      "maxRSS": 11776,
+      "systemtime": 14889,
+      "usertime": 570156
+     },
+     "1751544552160844": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 571272
+     },
+     "1751544552161927": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 572214
+     },
+     "1751544552163015": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 573253
+     },
+     "1751544552163874": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 574398
+     },
+     "1751544552164946": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 575298
+     },
+     "1751544552166017": {
+      "maxRSS": 11904,
+      "systemtime": 14889,
+      "usertime": 576319
+     },
+     "1751544552166512": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 577090
+     },
+     "1751544552167600": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 577364
+     },
+     "1751544552168686": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 578401
+     },
+     "1751544552169780": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 580453
+     },
+     "1751544552170545": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 580739
+     },
+     "1751544552171637": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 581534
+     },
+     "1751544552172712": {
+      "maxRSS": 11904,
+      "systemtime": 14899,
+      "usertime": 582558
+     },
+     "1751544552173463": {
+      "maxRSS": 11904,
+      "systemtime": 14905,
+      "usertime": 584287
+     }
+    }
+   }
+  }
+ }
+}
