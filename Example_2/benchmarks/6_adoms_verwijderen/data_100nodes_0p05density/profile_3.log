@@ -1,0 +1,117 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example_2/6_adoms_verwijderen.dl",
+    "fact-dir": "Example_2/facts/data_100nodes_0p05density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example_2/output/6_adoms_verwijderen/data_100nodes_0p05density/run_3",
+    "profile": "Example_2/benchmarks/6_adoms_verwijderen/data_100nodes_0p05density/profile_3.log",
+    "relationCount": "3",
+    "ruleCount": "2",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "R": {
+     "loadtime": { "start": 1751577123997150, "end": 1751577123997485},
+     "num-tuples": 471,
+     "reads": 0,
+     "source-locator": "6_adoms_verwijderen.dl [2:7-2:8]"
+    },
+    "S": {
+     "loadtime": { "start": 1751577123997495, "end": 1751577123997745},
+     "num-tuples": 530,
+     "reads": 471,
+     "source-locator": "6_adoms_verwijderen.dl [3:7-3:8]"
+    },
+    "Target_rewritten": {
+     "maxRSS": {
+      "post": 11264,
+      "pre": 11008
+     },
+     "non-recursive-rule": {
+      "Target_rewritten(x) :- \n   R(y,x),\n   S(y,x).": {
+       "atom-frequency": {
+        "Target_rewritten(x) :- \n   R(y,x),\n   S(y,x).": {
+         "R": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11264,
+        "pre": 11136
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751577123997897, "end": 1751577123997960},
+       "source-locator": "6_adoms_verwijderen.dl [20:1-22:13]"
+      },
+      "Target_rewritten(y1) :- \n   R(x1,y1),\n   S(x2,y1),\n   x1 != x2.": {
+       "atom-frequency": {
+        "Target_rewritten(y1) :- \n   R(x1,y1),\n   S(x2,y1),\n   x1 != x2.": {
+         "R": {
+          "level": 0,
+          "num-tuples": 0
+         },
+         "S": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11136,
+        "pre": 11008
+       },
+       "num-tuples": 99,
+       "runtime": { "start": 1751577123997756, "end": 1751577123997879},
+       "source-locator": "6_adoms_verwijderen.dl [14:1-17:14]"
+      }
+     },
+     "num-tuples": 99,
+     "reads": 0,
+     "runtime": { "start": 1751577123997752, "end": 1751577123997969},
+     "savetime": { "start": 1751577123997975, "end": 1751577123998090},
+     "source-locator": "6_adoms_verwijderen.dl [7:7-7:23]"
+    }
+   },
+   "runtime": { "start": 1751577123997145, "end": 1751577123998100},
+   "starttime": { "time": 1751577123997097},
+   "usage": {
+    "timepoint": {
+     "1751577123997126": {
+      "maxRSS": 10496,
+      "systemtime": 3582,
+      "usertime": 5374
+     },
+     "1751577123997511": {
+      "maxRSS": 11008,
+      "systemtime": 3788,
+      "usertime": 5683
+     },
+     "1751577123997765": {
+      "maxRSS": 11136,
+      "systemtime": 3902,
+      "usertime": 5853
+     },
+     "1751577123997910": {
+      "maxRSS": 11264,
+      "systemtime": 3955,
+      "usertime": 5962
+     },
+     "1751577123997987": {
+      "maxRSS": 11264,
+      "systemtime": 3955,
+      "usertime": 6059
+     }
+    }
+   }
+  }
+ }
+}

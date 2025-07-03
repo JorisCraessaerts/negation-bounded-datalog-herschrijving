@@ -42,9 +42,10 @@ for project_config in "${PROJECT_DIRS[@]}"; do
     output_base_dir="$project_dir/output"
     benchmarks_base_dir="$project_dir/benchmarks"
 
-    # --- WARMUP FASE ---
+    # --- WARMUP FASE (AANGEPAST) ---
     if [ "$WARMUP_RUNS" -gt 0 ]; then
         echo "🔥 Starten van $WARMUP_RUNS warmup runs..."
+        
         middle_index=$(( (${#DATASETS[@]} - 1) / 2 ))
         warmup_dataset_config=${DATASETS[$middle_index]}
         read -r nodes density <<< "$warmup_dataset_config"
@@ -58,15 +59,37 @@ for project_config in "${PROJECT_DIRS[@]}"; do
             echo "   -> Warmup data gevonden in '$facts_dir_for_run'."
         fi
 
-        warmup_program=${programs[-1]}
-        warmup_log_dir="${benchmarks_base_dir}/_warmup_logs/${dataset_name}"
-        mkdir -p "$warmup_log_dir"
-        echo "   (Gebruikt programma: $(basename "$warmup_program"), Dataset: $dataset_name)"
+        warmup_program_path=${programs[-1]}
+        warmup_program_name=$(basename "$warmup_program_path" .dl)
+        
+        # Aparte mappen voor warmup output en logs
+        warmup_output_dir="${output_base_dir}/_warmup/${warmup_program_name}/${dataset_name}"
+        warmup_benchmark_dir="${benchmarks_base_dir}/_warmup/${warmup_program_name}/${dataset_name}"
+        mkdir -p "$warmup_output_dir" "$warmup_benchmark_dir"
+
+        echo "   (Gebruikt programma: $warmup_program_name, Dataset: $dataset_name)"
 
         for i in $(seq 1 $WARMUP_RUNS); do
             echo -n "   -> Warmup run $i van de $WARMUP_RUNS..."
-            timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D /dev/null -p "${warmup_log_dir}/warmup_${i}.log" "$warmup_program" > /dev/null 2>&1
-            echo " OK"
+            
+            log_file="${warmup_benchmark_dir}/warmup_profile_${i}.log"
+            html_file="${warmup_benchmark_dir}/warmup_profile_${i}.html"
+            output_dir_for_run="${warmup_output_dir}/run_${i}"
+            mkdir -p "$output_dir_for_run"
+
+            # Voer warmup uit en genereer logs/output
+            if timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D "$output_dir_for_run" -p "$log_file" "$warmup_program_path"; then
+                 echo -n "OK. "
+                 souffleprof -o "$html_file" "$log_file" > /dev/null 2>&1
+                 echo "Log aangemaakt."
+            else
+                exit_status=$?
+                if [ $exit_status -eq 124 ]; then
+                    echo "TIMEOUT"
+                else
+                    echo "FOUT (exit code: $exit_status)"
+                fi
+            fi
         done
         echo "✅ Warmup voltooid."
     fi
@@ -91,22 +114,21 @@ for project_config in "${PROJECT_DIRS[@]}"; do
         for program_path in "${programs[@]}"; do
             program_name=$(basename "$program_path" .dl)
             
+            output_run_base_dir="${output_base_dir}/${program_name}/${dataset_name}"
             benchmark_run_dir="${benchmarks_base_dir}/${program_name}/${dataset_name}"
             
             echo "  -> Benchmarken van '$program_name' ($BENCHMARK_RUNS runs)..."
-            mkdir -p "$benchmark_run_dir"
+            mkdir -p "$output_run_base_dir" "$benchmark_run_dir"
 
             for run_num in $(seq 1 $BENCHMARK_RUNS); do
                 echo -n "     -> Run $run_num... "
                 
-                # Definieer een unieke output map voor elke run
-                output_dir_for_this_run="${output_base_dir}/${program_name}/${dataset_name}/run_${run_num}"
+                output_dir_for_this_run="${output_run_base_dir}/run_${run_num}"
                 mkdir -p "$output_dir_for_this_run"
 
                 log_file="${benchmark_run_dir}/profile_${run_num}.log"
                 html_file="${benchmark_run_dir}/profile_${run_num}.html"
                 
-                # Gebruik nu de -D vlag met de unieke map
                 if timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir_for_run" -D "$output_dir_for_this_run" -p "$log_file" "$program_path"; then
                     echo -n "OK. "
                     if souffleprof -o "$html_file" "$log_file" > /dev/null 2>&1; then

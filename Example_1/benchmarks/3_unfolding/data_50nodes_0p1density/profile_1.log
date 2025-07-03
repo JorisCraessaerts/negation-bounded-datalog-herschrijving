@@ -1,0 +1,365 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example_1/3_unfolding.dl",
+    "fact-dir": "Example_1/facts/data_50nodes_0p1density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example_1/output/3_unfolding/data_50nodes_0p1density/run_1",
+    "profile": "Example_1/benchmarks/3_unfolding/data_50nodes_0p1density/profile_1.log",
+    "relationCount": "3",
+    "ruleCount": "14",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "+disconnected0": {
+     "maxRSS": {
+      "post": 11520,
+      "pre": 11520
+     },
+     "non-recursive-rule": {
+      "+disconnected0() :- \n   edge(_,_).": {
+       "maxRSS": {
+        "post": 11520,
+        "pre": 11520
+       },
+       "num-tuples": 1,
+       "runtime": { "start": 1751576949751906, "end": 1751576949751909},
+       "source-locator": "3_unfolding.dl [6:1-6:23]"
+      }
+     },
+     "num-tuples": 1,
+     "reads": 0,
+     "runtime": { "start": 1751576949751903, "end": 1751576949751920},
+     "source-locator": " [1:1-1:1]"
+    },
+    "edge": {
+     "loadtime": { "start": 1751576949751647, "end": 1751576949751893},
+     "num-tuples": 252,
+     "reads": 1091,
+     "source-locator": "3_unfolding.dl [1:7-1:11]"
+    },
+    "result_positive_rewritten": {
+     "maxRSS": {
+      "post": 11776,
+      "pre": 11520
+     },
+     "non-recursive-rule": {
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11520
+       },
+       "num-tuples": 88,
+       "runtime": { "start": 1751576949751927, "end": 1751576949752065},
+       "source-locator": "3_unfolding.dl [16:1-19:16]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11648
+       },
+       "num-tuples": 164,
+       "runtime": { "start": 1751576949752075, "end": 1751576949752192},
+       "source-locator": "3_unfolding.dl [31:1-33:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752202, "end": 1751576949752293},
+       "source-locator": "3_unfolding.dl [34:1-36:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752303, "end": 1751576949752403},
+       "source-locator": "3_unfolding.dl [40:1-42:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752413, "end": 1751576949752499},
+       "source-locator": "3_unfolding.dl [45:1-47:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752508, "end": 1751576949752594},
+       "source-locator": "3_unfolding.dl [48:1-50:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752603, "end": 1751576949752700},
+       "source-locator": "3_unfolding.dl [54:1-56:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752709, "end": 1751576949752798},
+       "source-locator": "3_unfolding.dl [59:1-61:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752807, "end": 1751576949752900},
+       "source-locator": "3_unfolding.dl [62:1-64:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949752909, "end": 1751576949753000},
+       "source-locator": "3_unfolding.dl [68:1-70:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949753008, "end": 1751576949753097},
+       "source-locator": "3_unfolding.dl [73:1-75:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949753105, "end": 1751576949753193},
+       "source-locator": "3_unfolding.dl [76:1-78:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11776,
+        "pre": 11776
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1751576949753202, "end": 1751576949753293},
+       "source-locator": "3_unfolding.dl [82:1-84:41]"
+      }
+     },
+     "num-tuples": 252,
+     "reads": 0,
+     "runtime": { "start": 1751576949751926, "end": 1751576949753302},
+     "savetime": { "start": 1751576949753308, "end": 1751576949753432},
+     "source-locator": "3_unfolding.dl [10:7-10:32]"
+    }
+   },
+   "runtime": { "start": 1751576949751643, "end": 1751576949753440},
+   "starttime": { "time": 1751576949751555},
+   "usage": {
+    "timepoint": {
+     "1751576949751597": {
+      "maxRSS": 10880,
+      "systemtime": 9007,
+      "usertime": 513437
+     },
+     "1751576949751918": {
+      "maxRSS": 11520,
+      "systemtime": 9009,
+      "usertime": 513912
+     },
+     "1751576949752088": {
+      "maxRSS": 11776,
+      "systemtime": 9009,
+      "usertime": 514091
+     },
+     "1751576949752213": {
+      "maxRSS": 11776,
+      "systemtime": 9009,
+      "usertime": 514236
+     },
+     "1751576949752313": {
+      "maxRSS": 11776,
+      "systemtime": 9009,
+      "usertime": 514354
+     },
+     "1751576949752423": {
+      "maxRSS": 11776,
+      "systemtime": 9009,
+      "usertime": 514481
+     },
+     "1751576949752518": {
+      "maxRSS": 11776,
+      "systemtime": 9010,
+      "usertime": 514593
+     },
+     "1751576949752613": {
+      "maxRSS": 11776,
+      "systemtime": 9012,
+      "usertime": 514709
+     },
+     "1751576949752719": {
+      "maxRSS": 11776,
+      "systemtime": 9014,
+      "usertime": 514830
+     },
+     "1751576949752817": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 514943
+     },
+     "1751576949752920": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 515062
+     },
+     "1751576949753019": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 515180
+     },
+     "1751576949753116": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 515300
+     },
+     "1751576949753212": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 515414
+     },
+     "1751576949753318": {
+      "maxRSS": 11776,
+      "systemtime": 9016,
+      "usertime": 515537
+     }
+    }
+   }
+  }
+ }
+}
