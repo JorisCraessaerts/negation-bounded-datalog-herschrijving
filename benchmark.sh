@@ -1,5 +1,4 @@
 #!/bin/bash
-trap 'echo "❌ Benchmark geannuleerd door gebruiker"; kill 0; exit 1' SIGINT SIGTERM
 
 # --- CONFIGURATIE ---
 PROJECT_DIRS=(
@@ -8,21 +7,31 @@ PROJECT_DIRS=(
 )
 DATASETS=(
     "50 0.1"
-    "100 0.05"
-    "500 0.02"
+    # "100 0.05"
+    # "500 0.02"
 )
-TIMEOUT_SECONDS=120         # Maximale duur van één soufflé-run
-WARMUP_RUNS=10              # Aantal warmup-runs
-BENCHMARK_RUNS=3            # Aantal benchmark-runs per programma
-SOUFFLE_THREADS=8           # Aantal threads dat Soufflé mag gebruiken
-CPU_LIMIT=700               # Maximaal % CPU over alle cores (bijv. 700% = 7 cores)
+TIMEOUT_SECONDS=100
+WARMUP_RUNS=10
+BENCHMARK_RUNS=3
 # --- EINDE CONFIGURATIE ---
+
+# 🛑 Cleanup wanneer script onderbroken wordt met Ctrl+C
+cleanup() {
+    echo ""
+    echo "🛑 Benchmark onderbroken. Processen worden opgeruimd..."
+    pkill -TERM souffle 2>/dev/null
+    sleep 2
+    pkill -KILL souffle 2>/dev/null
+    echo "🧹 Opruimen voltooid."
+    exit 1
+}
+trap cleanup SIGINT SIGTERM
 
 echo "🚀 Starten van de benchmarks..."
 
 for project_config in "${PROJECT_DIRS[@]}"; do
     IFS=':' read -r project_dir data_type <<< "$project_config"
-    
+
     echo ""
     echo "📁 Projectmap: $project_dir"
 
@@ -63,11 +72,16 @@ for project_config in "${PROJECT_DIRS[@]}"; do
             log_file="${benchmark_dir}/warmup_${warmup_program_name}_${warmup_dataset}_${i}.json"
             run_output="${output_dir}/run_${i}"
             mkdir -p "$run_output"
+            
+            stderr_log="${run_output}/stderr.txt"
+            echo -n "      🚀 Warmup run $i... "
+            (
+                ulimit -v 10485760
+                timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir" -D "$run_output" -p "$log_file" "$warmup_program_path"
+            ) 2> "$stderr_log" & wait $!
 
-            echo -n "   🔁 Warmup $i... "
-            if timeout "$TIMEOUT_SECONDS" cpulimit -l $CPU_LIMIT -- nice -n 10 \
-                souffle -j $SOUFFLE_THREADS -F "$facts_dir" -D "$run_output" -p "$log_file" "$warmup_program_path"
-            then
+
+            if [ $? -eq 0 ]; then
                 echo "OK"
             else
                 echo "❌ FOUT of TIMEOUT"
@@ -103,10 +117,14 @@ for project_config in "${PROJECT_DIRS[@]}"; do
                 run_output="${output_dir}/run_${i}"
                 mkdir -p "$run_output"
 
+                stderr_log="${run_output}/stderr.txt"
                 echo -n "      🚀 Benchmark $i... "
-                if timeout "$TIMEOUT_SECONDS" cpulimit -l $CPU_LIMIT -- nice -n 10 \
-                    souffle -j $SOUFFLE_THREADS -F "$facts_dir" -D "$run_output" -p "$log_file" "$program_path"
-                then
+                (
+                    ulimit -v 10485760
+                    timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir" -D "$run_output" -p "$log_file" "$program_path"
+                ) 2> "$stderr_log" & wait $!
+
+                if [ $? -eq 0 ]; then
                     echo "OK"
                 else
                     echo "❌ FOUT of TIMEOUT"
