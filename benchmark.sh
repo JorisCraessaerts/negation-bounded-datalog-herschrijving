@@ -3,16 +3,17 @@
 # --- CONFIGURATIE ---
 PROJECT_DIRS=(
     "Example_1:edge"
-    "Example_2:rs"
+    #"Example_2:rs"
 )
 DATASETS=(
-    "50 0.1"
-    # "100 0.05"
-    # "500 0.02"
+    "50 0.02"  # Ijle graaf
+    "50 0.1"   # Matige dichtheid
+    "50 0.5"   # Dicht
+    "50 1.0"   # Volledig
 )
 TIMEOUT_SECONDS=100
-WARMUP_RUNS=10
-BENCHMARK_RUNS=3
+WARMUP_RUNS=30
+BENCHMARK_RUNS=50
 # --- EINDE CONFIGURATIE ---
 
 # 🛑 Cleanup wanneer script onderbroken wordt met Ctrl+C
@@ -54,7 +55,7 @@ for project_config in "${PROJECT_DIRS[@]}"; do
         warmup_dataset_config=${DATASETS[$middle_index]}
         read -r w_nodes w_density <<< "$warmup_dataset_config"
         warmup_dataset="data_${w_nodes}nodes_${w_density//./p}density"
-        facts_dir="${facts_base_dir}/${warmup_dataset}"
+        facts_dir="${facts_base_dir}" # /${warmup_dataset}"
 
         if [ ! -d "$facts_dir" ]; then
             echo "   ➤ Genereren van warmup-facts..."
@@ -73,12 +74,11 @@ for project_config in "${PROJECT_DIRS[@]}"; do
             run_output="${output_dir}/run_${i}"
             mkdir -p "$run_output"
             
-            stderr_log="${run_output}/stderr.txt"
             echo -n "      🚀 Warmup run $i... "
             (
                 ulimit -v 10485760
                 timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir" -D "$run_output" -p "$log_file" "$warmup_program_path"
-            ) 2> "$stderr_log" & wait $!
+            )            & wait $!
 
 
             if [ $? -eq 0 ]; then
@@ -117,12 +117,11 @@ for project_config in "${PROJECT_DIRS[@]}"; do
                 run_output="${output_dir}/run_${i}"
                 mkdir -p "$run_output"
 
-                stderr_log="${run_output}/stderr.txt"
                 echo -n "      🚀 Benchmark $i... "
                 (
                     ulimit -v 10485760
                     timeout "$TIMEOUT_SECONDS" souffle -F "$facts_dir" -D "$run_output" -p "$log_file" "$program_path"
-                ) 2> "$stderr_log" & wait $!
+                ) & wait $!
 
                 if [ $? -eq 0 ]; then
                     echo "OK"
