@@ -1,0 +1,175 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example_1/0_origineel_programma_bounded_negation_voor_herschrijving.dl",
+    "fact-dir": "Example_1/facts/data_10nodes_1p0density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example_1/output/0_origineel_programma_bounded_negation_voor_herschrijving/data_10nodes_1p0density/run_28",
+    "profile": "Example_1/benchmarks/0_origineel_programma_bounded_negation_voor_herschrijving_data_10nodes_1p0density_run28.json",
+    "relationCount": "4",
+    "ruleCount": "4",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "T1": {
+     "maxRSS": {
+      "post": 11264,
+      "pre": 11136
+     },
+     "non-recursive-rule": {
+      "T1(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   !edge(z,x).": {
+       "atom-frequency": {
+        "T1(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   !edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11264,
+        "pre": 11136
+       },
+       "num-tuples": 90,
+       "runtime": { "start": 1753819639015653, "end": 1753819639015731},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [7:1-7:49]"
+      }
+     },
+     "num-tuples": 90,
+     "reads": 0,
+     "runtime": { "start": 1753819639015650, "end": 1753819639015744},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [6:7-6:9]"
+    },
+    "T2": {
+     "maxRSS": {
+      "post": 11264,
+      "pre": 11264
+     },
+     "non-recursive-rule": {
+      "T2(x,y) :- \n   edge(x,y),\n   !edge(y,z),\n   edge(z,x).": {
+       "atom-frequency": {
+        "T2(x,y) :- \n   edge(x,y),\n   !edge(y,z),\n   edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11264,
+        "pre": 11264
+       },
+       "num-tuples": 90,
+       "runtime": { "start": 1753819639015754, "end": 1753819639015817},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [11:1-11:49]"
+      }
+     },
+     "num-tuples": 90,
+     "reads": 90,
+     "runtime": { "start": 1753819639015752, "end": 1753819639015828},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [10:7-10:9]"
+    },
+    "edge": {
+     "loadtime": { "start": 1753819639015457, "end": 1753819639015637},
+     "num-tuples": 90,
+     "reads": 1000,
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [2:7-2:11]"
+    },
+    "result_bounded_negation": {
+     "maxRSS": {
+      "post": 11264,
+      "pre": 11264
+     },
+     "non-recursive-rule": {
+      "result_bounded_negation(x,y) :- \n   T1(x,y),\n   T2(x,y),\n   x != y.": {
+       "atom-frequency": {
+        "result_bounded_negation(x,y) :- \n   T1(x,y),\n   T2(x,y),\n   x != y.": {
+         "T1": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11264,
+        "pre": 11264
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819639015883, "end": 1753819639015919},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [18:1-18:61]"
+      },
+      "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "atom-frequency": {
+        "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11264,
+        "pre": 11264
+       },
+       "num-tuples": 90,
+       "runtime": { "start": 1753819639015844, "end": 1753819639015872},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [17:1-17:69]"
+      }
+     },
+     "num-tuples": 90,
+     "reads": 0,
+     "runtime": { "start": 1753819639015835, "end": 1753819639015931},
+     "savetime": { "start": 1753819639015938, "end": 1753819639016112},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [14:7-14:30]"
+    }
+   },
+   "runtime": { "start": 1753819639015451, "end": 1753819639016130},
+   "starttime": { "time": 1753819639015389},
+   "usage": {
+    "timepoint": {
+     "1753819639015403": {
+      "maxRSS": 10624,
+      "systemtime": 2079,
+      "usertime": 6238
+     },
+     "1753819639015462": {
+      "maxRSS": 10880,
+      "systemtime": 2111,
+      "usertime": 6334
+     },
+     "1753819639015656": {
+      "maxRSS": 11136,
+      "systemtime": 2162,
+      "usertime": 6487
+     },
+     "1753819639015758": {
+      "maxRSS": 11264,
+      "systemtime": 2190,
+      "usertime": 6570
+     },
+     "1753819639015850": {
+      "maxRSS": 11264,
+      "systemtime": 2232,
+      "usertime": 6628
+     },
+     "1753819639015889": {
+      "maxRSS": 11264,
+      "systemtime": 2280,
+      "usertime": 6628
+     },
+     "1753819639015944": {
+      "maxRSS": 11264,
+      "systemtime": 2342,
+      "usertime": 6628
+     }
+    }
+   }
+  }
+ }
+}

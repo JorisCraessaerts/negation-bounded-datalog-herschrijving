@@ -1,0 +1,127 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example_2/7_update.dl",
+    "fact-dir": "Example_2/facts/data_10nodes_0p5density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example_2/output/7_update/data_10nodes_0p5density/run_30",
+    "profile": "Example_2/benchmarks/7_update_data_10nodes_0p5density_run30.json",
+    "relationCount": "3",
+    "ruleCount": "2",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "R": {
+     "loadtime": { "start": 1753819790206552, "end": 1753819790206921},
+     "num-tuples": 43,
+     "reads": 41,
+     "source-locator": "7_update.dl [2:7-2:8]"
+    },
+    "S": {
+     "loadtime": { "start": 1753819790206944, "end": 1753819790207051},
+     "num-tuples": 48,
+     "reads": 86,
+     "source-locator": "7_update.dl [3:7-3:8]"
+    },
+    "Target": {
+     "maxRSS": {
+      "post": 11392,
+      "pre": 11136
+     },
+     "non-recursive-rule": {
+      "Target(x) :- \n   R(y,x),\n   !S(y,x),\n   S(z,x),\n   !R(z,x).": {
+       "atom-frequency": {
+        "Target(x) :- \n   R(y,x),\n   !S(y,x),\n   S(z,x),\n   !R(z,x).": {
+         "R": {
+          "level": 0,
+          "num-tuples": 0
+         },
+         "S": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11392,
+        "pre": 11392
+       },
+       "num-tuples": 1,
+       "runtime": { "start": 1753819790207156, "end": 1753819790207209},
+       "source-locator": "7_update.dl [25:1-27:20]"
+      },
+      "Target(x) :- \n   R(y,x),\n   S(y,x).": {
+       "atom-frequency": {
+        "Target(x) :- \n   R(y,x),\n   S(y,x).": {
+         "R": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11392,
+        "pre": 11136
+       },
+       "num-tuples": 9,
+       "runtime": { "start": 1753819790207074, "end": 1753819790207131},
+       "source-locator": "7_update.dl [22:1-22:31]"
+      }
+     },
+     "num-tuples": 10,
+     "reads": 0,
+     "runtime": { "start": 1753819790207068, "end": 1753819790207233},
+     "savetime": { "start": 1753819790207246, "end": 1753819790207433},
+     "source-locator": "7_update.dl [10:7-10:13]"
+    }
+   },
+   "runtime": { "start": 1753819790206540, "end": 1753819790207447},
+   "starttime": { "time": 1753819790206440},
+   "usage": {
+    "timepoint": {
+     "1753819790206450": {
+      "maxRSS": 10624,
+      "systemtime": 3523,
+      "usertime": 5872
+     },
+     "1753819790206556": {
+      "maxRSS": 10752,
+      "systemtime": 3587,
+      "usertime": 5978
+     },
+     "1753819790206573": {
+      "maxRSS": 10752,
+      "systemtime": 3599,
+      "usertime": 5999
+     },
+     "1753819790206956": {
+      "maxRSS": 11136,
+      "systemtime": 3599,
+      "usertime": 6391
+     },
+     "1753819790207078": {
+      "maxRSS": 11136,
+      "systemtime": 3599,
+      "usertime": 6530
+     },
+     "1753819790207165": {
+      "maxRSS": 11392,
+      "systemtime": 3599,
+      "usertime": 6621
+     },
+     "1753819790207255": {
+      "maxRSS": 11392,
+      "systemtime": 3599,
+      "usertime": 6720
+     }
+    }
+   }
+  }
+ }
+}

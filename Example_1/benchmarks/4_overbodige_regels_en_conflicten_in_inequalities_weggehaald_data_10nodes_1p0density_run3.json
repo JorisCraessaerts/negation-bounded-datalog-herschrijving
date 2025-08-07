@@ -1,0 +1,370 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "Example_1/4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl",
+    "fact-dir": "Example_1/facts/data_10nodes_1p0density",
+    "include-dir": ".",
+    "jobs": "1",
+    "libraries": "functors",
+    "library-dir": ".",
+    "output-dir": "Example_1/output/4_overbodige_regels_en_conflicten_in_inequalities_weggehaald/data_10nodes_1p0density/run_3",
+    "profile": "Example_1/benchmarks/4_overbodige_regels_en_conflicten_in_inequalities_weggehaald_data_10nodes_1p0density_run3.json",
+    "relationCount": "3",
+    "ruleCount": "14",
+    "version": "2.4",
+    "warn": "all",
+    "wno": "none"
+   },
+   "relation": {
+    "+disconnected0": {
+     "maxRSS": {
+      "post": 11520,
+      "pre": 11392
+     },
+     "non-recursive-rule": {
+      "+disconnected0() :- \n   edge(_,_).": {
+       "maxRSS": {
+        "post": 11520,
+        "pre": 11392
+       },
+       "num-tuples": 1,
+       "runtime": { "start": 1753819743224453, "end": 1753819743224466},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [6:1-6:23]"
+      }
+     },
+     "num-tuples": 1,
+     "reads": 0,
+     "runtime": { "start": 1753819743224450, "end": 1753819743224479},
+     "source-locator": " [1:1-1:1]"
+    },
+    "edge": {
+     "loadtime": { "start": 1753819743224276, "end": 1753819743224439},
+     "num-tuples": 90,
+     "reads": 100,
+     "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [1:7-1:11]"
+    },
+    "result_positive_rewritten": {
+     "maxRSS": {
+      "post": 11648,
+      "pre": 11520
+     },
+     "non-recursive-rule": {
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+         "edge": {
+          "level": 0,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11520
+       },
+       "num-tuples": 90,
+       "runtime": { "start": 1753819743224488, "end": 1753819743224531},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [16:1-19:16]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224742, "end": 1753819743224770},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [32:1-32:140]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224669, "end": 1753819743224697},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [29:1-29:133]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224706, "end": 1753819743224733},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [30:1-30:133]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224626, "end": 1753819743224660},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [26:1-26:147]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224542, "end": 1753819743224577},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [23:1-23:140]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   x != z1,\n   y != z1,\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224588, "end": 1753819743224617},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [24:1-24:140]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   y != z2,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224861, "end": 1753819743224891},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [38:1-38:146]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224779, "end": 1753819743224808},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [35:1-35:139]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   y != z1,\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224817, "end": 1753819743224852},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [36:1-36:139]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   y != z2,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   y != z2,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224975, "end": 1753819743225005},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [44:1-44:146]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   y != z2.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   y != z2.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224900, "end": 1753819743224929},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [41:1-41:139]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   z2 != x.": {
+       "atom-frequency": {
+        "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   +disconnected0(),\n   y != x,\n   z1 != x,\n   x != y,\n   z2 != x.": {
+         "edge": {
+          "level": 1,
+          "num-tuples": 0
+         }
+        }
+       },
+       "maxRSS": {
+        "post": 11648,
+        "pre": 11648
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1753819743224938, "end": 1753819743224966},
+       "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [42:1-42:139]"
+      }
+     },
+     "num-tuples": 90,
+     "reads": 0,
+     "runtime": { "start": 1753819743224486, "end": 1753819743225015},
+     "savetime": { "start": 1753819743225021, "end": 1753819743225161},
+     "source-locator": "4_overbodige_regels_en_conflicten_in_inequalities_weggehaald.dl [10:7-10:32]"
+    }
+   },
+   "runtime": { "start": 1753819743224272, "end": 1753819743225168},
+   "starttime": { "time": 1753819743224192},
+   "usage": {
+    "timepoint": {
+     "1753819743224214": {
+      "maxRSS": 10752,
+      "systemtime": 4993,
+      "usertime": 320572
+     },
+     "1753819743224465": {
+      "maxRSS": 11520,
+      "systemtime": 4999,
+      "usertime": 320959
+     },
+     "1753819743224496": {
+      "maxRSS": 11520,
+      "systemtime": 5000,
+      "usertime": 321003
+     },
+     "1753819743224553": {
+      "maxRSS": 11648,
+      "systemtime": 5001,
+      "usertime": 321075
+     },
+     "1753819743224598": {
+      "maxRSS": 11648,
+      "systemtime": 5002,
+      "usertime": 321137
+     },
+     "1753819743224637": {
+      "maxRSS": 11648,
+      "systemtime": 5003,
+      "usertime": 321193
+     },
+     "1753819743224680": {
+      "maxRSS": 11648,
+      "systemtime": 5003,
+      "usertime": 321253
+     },
+     "1753819743224718": {
+      "maxRSS": 11648,
+      "systemtime": 5004,
+      "usertime": 321314
+     },
+     "1753819743224752": {
+      "maxRSS": 11648,
+      "systemtime": 5005,
+      "usertime": 321367
+     },
+     "1753819743224789": {
+      "maxRSS": 11648,
+      "systemtime": 5006,
+      "usertime": 321420
+     },
+     "1753819743224827": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321474
+     },
+     "1753819743224871": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321548
+     },
+     "1753819743224910": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321611
+     },
+     "1753819743224948": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321666
+     },
+     "1753819743224985": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321720
+     },
+     "1753819743225031": {
+      "maxRSS": 11648,
+      "systemtime": 5007,
+      "usertime": 321783
+     }
+    }
+   }
+  }
+ }
+}

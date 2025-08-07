@@ -28,3 +28,6 @@ souffleprof ./benchmarkresults/positive_rewirte_domain_reduction/positive_rewrit
 => 24s sec
 souffleprof ./pos_rewrite_with_Magic_sets_100_nodes_2000_edges.log 
 => 14 sec
+
+
+source venv/bin/activate

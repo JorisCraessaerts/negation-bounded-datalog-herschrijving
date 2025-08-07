@@ -1,0 +1,37 @@
+// Input: Blue and red edges
+.decl Blue(x:symbol, y:symbol)
+.decl Red(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red(filename="Red.facts")
+
+// Helper predicates for the paths
+.decl BluePath(x:symbol, y:symbol)
+.decl RedPath(x:symbol, y:symbol)
+.decl HasOutgoingBlue(x:symbol)
+
+// Output
+.decl Authenticated(x:symbol, y:symbol)
+.output Authenticated(filename="authenticated_positive.csv") // The result is written to this csv
+
+// Rules
+//-----------------------------------------------------------------------------
+// Rule 1: A path with only blue connections from start to end
+BluePath(x, y) :- Blue(x, y).
+BluePath(x, y) :- BluePath(x, z), Blue(z, y).
+
+// Rule 2: A path with only red connections from start to finish
+RedPath(x, y) :- Red(x, y).
+RedPath(x, y) :- RedPath(x, z), Red(z, y).
+
+// Regel 3: All vertices that have an outgoing blue path
+HasOutgoingBlue(x) :- BluePath(x, _).
+
+
+
+// Output rules
+//-----------------------------------------------------------------------------
+// There are two ways to authenticate a path
+// 1) It's a blue path (so only blue edges on the path)
+Authenticated(x, y) :- BluePath(x, y).
+// 2) Or its a fully red path from x to y, BUT next to the fully blue path x also has an outgoing blue path to somewhere (doesn't matter to where).
+Authenticated(x, y) :- RedPath(x, y), HasOutgoingBlue(x).

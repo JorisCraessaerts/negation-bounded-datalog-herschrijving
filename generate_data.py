@@ -45,7 +45,7 @@ def main():
         write_facts_to_file(output_path, "R.facts", r_facts)
         write_facts_to_file(output_path, "S.facts", s_facts)
 
-    print(f"✅ Data gegenereerd in '{output_path}'")
+    print(f"Data gegenereerd in '{output_path}'")
 
 if __name__ == "__main__":
     main()

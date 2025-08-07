@@ -1,0 +1,41 @@
+// In the original program, paths are authenticated if they are fully blue paths from start to finish
+// OR, if it is a red path, but there is also another outgoing blue path from the start vertice to somewhere (doesn't matter to where, it just matters there IS a blue path going from the starting vertice).
+// Input
+.decl Blue(x:symbol, y:symbol)
+.decl Red(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red(filename="Red.facts")
+
+// Helpers
+.decl BluePath(x:symbol, y:symbol)
+.decl RedPath(x: symbol, y:symbol)
+.decl Path(x:symbol, y:symbol)
+.decl UnauthenticatedRed(x:symbol, y:symbol)
+.decl HasOutgoingBlue(x:symbol)
+
+// Output
+.decl Authenticated(x:symbol, y:symbol)
+.output Authenticated
+
+// Rules
+// A path containing only Blue edges.
+BluePath(x, y) :- Blue(x, y).
+BluePath(x, y) :- BluePath(x, z), Blue(z, y).
+
+RedPath(x, y) :- Red(x, y).
+RedPath(x, y) :- RedPath(x, z), Red(z, y).
+
+// Rules that define a path. A path can contain Blue as wel as Red edges.
+Path(x, y) :- Blue(x, y).
+Path(x, y) :- Red(x, y).
+Path(x, y) :- Path(x, z), Blue(z, y).
+Path(x, y) :- Path(x, z), Red(z, y).
+
+// Vertices with an outgoing blue path.
+HasOutgoingBlue(x) :- BluePath(x, _). 
+
+// The unauthenticated paths: these are the RedPaths where there is no OutGoingBluePath for the start vertice x
+UnauthenticatedRed(x, y) :- RedPath(x, y), !HasOutgoingBlue(x).
+
+// A path is authenticated if it is a path en the path is not unauthenticated at the same time
+Authenticated(x, y) :- Path(x, y), !UnauthenticatedRed(x, y).

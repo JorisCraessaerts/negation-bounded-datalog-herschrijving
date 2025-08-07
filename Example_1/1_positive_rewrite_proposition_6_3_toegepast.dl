@@ -9,8 +9,8 @@ adom(x) :- edge(_, x).
 // T1-varianten - Declaratie aangepast met unieke namen (Soufflé staat niet toe dat meerdere outputvariabelen dezelfde naam hebben)
 .decl T1(p_z:number, p_x:number, p_x2:number, p_y2:number, original_x:number, original_y:number)
 T1(z, x, x2, y2, x, y) :-
-    edge(x, y),
-    edge(y, z),
+    edge(x, y), // Blauwe bogen
+    edge(y, z), //
     !edge(z, x),
     adom(x2), adom(y2),
     x != z,
