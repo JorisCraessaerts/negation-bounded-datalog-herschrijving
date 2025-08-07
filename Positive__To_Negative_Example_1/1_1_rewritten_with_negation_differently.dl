@@ -1,0 +1,40 @@
+// Ik verwacht dat deze versie 1_1 van het programma performanter zal zijn dan versie 1
+// Omdat we bij het andere programma eerst de volledige transitieve sluiting gaan berekenen en daarna 
+// Pas de negatie gaan uitvoeren terwijl we hier één enkel Red edge willen gevonden hebben vooraleer we de negatie nemen.
+
+// Input
+.decl Blue(x:symbol, y:symbol)
+.decl Red(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red(filename="Red.facts")
+
+// Helpers
+.decl BluePath(x:symbol, y:symbol)
+.decl Path(x:symbol, y:symbol)
+.decl UnauthenticatedRed(x:symbol, y:symbol)
+.decl HasOutgoingBlue(x:symbol)
+
+// Output
+.decl Authenticated(x:symbol, y:symbol)
+.output Authenticated
+
+// Rules
+// A path with only Blue edges
+BluePath(x, y) :- Blue(x, y).
+BluePath(x, y) :- BluePath(x, z), Blue(z, y).
+
+// 'A' path
+Path(x, y) :- Blue(x, y).
+Path(x, y) :- Red(x, y).
+Path(x, y) :- Path(x, z), Blue(z, y).
+Path(x, y) :- Path(x, z), Red(z, y).
+
+// Vertices that have an outgoing BluePath to somewhere (doesn't matter to where)
+HasOutgoingBlue(x) :- BluePath(x, _). 
+
+// The unauthenticated Red paths. These are paths that start with a Red edge and that don't have an fully OutGoingBlue path to somewhere (the path that is necessary to be considered authenticated).
+UnauthenticatedRed(x, y) :- Red(x, y), !HasOutgoingBlue(x). // Direct connection from x to y
+UnauthenticatedRed(x, y) :- UnauthenticatedRed(x, z), Red(z, y). // A longer not direct path that contains an unauthenticated path from x to z and a red path from z to y.
+
+// A path is authenticated if it is a path and it is not unauthenticated.
+Authenticated(x, y) :- Path(x, y), !UnauthenticatedRed(x, y).

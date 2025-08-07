@@ -38,4 +38,5 @@ HasOutgoingBlue(x) :- BluePath(x, _).
 UnauthenticatedRed(x, y) :- RedPath(x, y), !HasOutgoingBlue(x).
 
 // A path is authenticated if it is a path en the path is not unauthenticated at the same time
-Authenticated(x, y) :- Path(x, y), !UnauthenticatedRed(x, y).
+Authenticated(x, y) :- BluePath(x, y).
+Authenticated(x, y) :- RedPath(x, y), !UnauthenticatedRed(x, y).
