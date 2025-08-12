@@ -29,5 +29,8 @@ souffleprof ./benchmarkresults/positive_rewirte_domain_reduction/positive_rewrit
 souffleprof ./pos_rewrite_with_Magic_sets_100_nodes_2000_edges.log 
 => 14 sec
 
-
+Plotten:
+----------------------------------
+python3 -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt

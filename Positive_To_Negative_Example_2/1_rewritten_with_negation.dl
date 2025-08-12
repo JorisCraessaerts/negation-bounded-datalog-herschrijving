@@ -1,0 +1,51 @@
+
+// Input
+.decl Blue (x:symbol, y:symbol)
+.decl Red  (x:symbol, y:symbol)
+.decl Green(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red (filename="Red.facts")
+.input Green(filename="Green.facts")
+
+// Helpers (transitive closures)
+.decl BluePath (x:symbol, y:symbol)
+.decl RedPath  (x:symbol, y:symbol)
+.decl GreenPath(x:symbol, y:symbol)
+
+BluePath(x,y)  :- Blue(x,y).
+BluePath(x,y)  :- BluePath(x,z),  Blue(z,y).
+
+RedPath(x,y)   :- Red(x,y).
+RedPath(x,y)   :- RedPath(x,z),   Red(z,y).
+
+GreenPath(x,y) :- Green(x,y).
+GreenPath(x,y) :- GreenPath(x,z), Green(z,y).
+
+// Mixed path: first a blue path from x to z and then a red path from z to y
+.decl MixedBR(x:symbol, y:symbol)
+MixedBR(x,y)  :- BluePath(x,z), RedPath(z,y).
+
+// Rules to check if x has an outgoing path in a specfic color
+.decl HasOutBlue (x:symbol)
+.decl HasOutGreen(x:symbol)
+HasOutBlue(x)  :- BluePath(x,_).
+HasOutGreen(x) :- GreenPath(x,_).
+
+// Not authorized cases
+.decl UnauthRed  (x:symbol, y:symbol)  // red path but the start (x) does not have a blue autgoing path
+.decl UnauthMixed(x:symbol, y:symbol)  // a mixed path, but the start (x) does not have a green outgoing path
+UnauthRed(x,y)   :- RedPath(x,y),  !HasOutBlue(x).
+UnauthMixed(x,y) :- MixedBR(x,y), !HasOutGreen(x).
+
+// Output: Authenticated_neg
+.decl Authenticated_neg(x:symbol, y:symbol)
+.output Authenticated_neg//(filename="authenticated_neg.csv")
+
+// 1) Fully green path
+Authenticated_neg(x,y) :- GreenPath(x,y).
+
+// 2) Red paths that are not unauthorized
+Authenticated_neg(x,y) :- RedPath(x,y),  !UnauthRed(x,y).
+
+// 3) Mixed paths that are not unauthorized
+Authenticated_neg(x,y) :- MixedBR(x,y), !UnauthMixed(x,y).

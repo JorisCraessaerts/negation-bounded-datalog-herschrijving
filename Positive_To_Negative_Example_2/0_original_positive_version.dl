@@ -1,0 +1,44 @@
+// Input
+.decl Blue (x:symbol, y:symbol)
+.decl Red  (x:symbol, y:symbol)
+.decl Green(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red (filename="Red.facts")
+.input Green(filename="Green.facts")
+
+// Helpers
+.decl BluePath (x:symbol, y:symbol)
+.decl RedPath  (x:symbol, y:symbol)
+.decl GreenPath(x:symbol, y:symbol)
+
+BluePath(x,y)  :- Blue(x,y).
+BluePath(x,y)  :- BluePath(x,z),  Blue(z,y).
+
+RedPath(x,y)   :- Red(x,y).
+RedPath(x,y)   :- RedPath(x,z),   Red(z,y).
+
+GreenPath(x,y) :- Green(x,y).
+GreenPath(x,y) :- GreenPath(x,z), Green(z,y).
+
+// Mixed path: First a blue path from x to z and then a red path from z to y
+.decl MixedBR(x:symbol, y:symbol)
+MixedBR(x,y)  :- BluePath(x,z), RedPath(z,y).
+
+// Rules to check if x has an outgoing path in a specfic color
+.decl HasOutBlue (x:symbol)
+.decl HasOutGreen(x:symbol)
+HasOutBlue(x)  :- BluePath(x,_).
+HasOutGreen(x) :- GreenPath(x,_).
+
+// Output: Authenticated_pos
+.decl Authenticated_pos(x:symbol, y:symbol)
+.output Authenticated_pos//(filename="authenticated_pos.csv")
+
+// 1) Fully Green path
+Authenticated_pos(x,y) :- GreenPath(x,y).
+
+// 2) Fully Red path, with OutgoingBlue from x (the start)
+Authenticated_pos(x,y) :- RedPath(x,y),  HasOutBlue(x).
+
+// 3) Mixed Blue-Red path, OutgoingGreen from x
+Authenticated_pos(x,y) :- MixedBR(x,y), HasOutGreen(x).

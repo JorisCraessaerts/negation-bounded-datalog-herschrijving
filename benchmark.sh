@@ -2,18 +2,19 @@
 
 # Configuratie, welke programma runnen met welke data
 PROJECT_DIRS=(
-    "Example_1:edge"
-    "Example_2:rs"
+    # "Example_1:edge"
+    # "Example_2:rs"
+    "Positive_To_Negative_Example_1:blue_red"
 )
 DATASETS=(
-    "10 0.02"  # Ijle graaf
-    "10 0.1"   # Matige dichtheid
-    "10 0.5"   # Dicht
-    "10 1.0"   # Volledig
+    "500 0.02"  # Ijle graaf
+    # "500 0.1"   # Matige dichtheid
+    # "500 0.5"   # Dicht
+    # "500 1.0"   # Volledig
 )
 TIMEOUT_SECONDS=100 # programma stop wanneer benchmark te lang duurt
-WARMUP_RUNS=30
-BENCHMARK_RUNS=50
+WARMUP_RUNS=5
+BENCHMARK_RUNS=10
 
 
 # Ctrl + C moet ervoor zorgen dat de benchmarks worden afgebroken

@@ -1,0 +1,17 @@
+// Input: Blue and red edges
+.decl Blue(x:symbol, y:symbol)
+.decl Red(x:symbol, y:symbol)
+.input Blue(filename="Blue.facts")
+.input Red(filename="Red.facts")
+
+// Output
+.decl Authenticated(x:symbol, y:symbol)
+.output Authenticated
+
+
+Authenticated(x, y) :- Blue(x, y).
+Authenticated(x, y) :- Authenticated(x, z), Blue(z, y).
+Authenticated(x, y) :- Red(x, y), Blue(x, _).
+Authenticated(x, y) :- Red(x, z), Authenticated(z, y), Blue(x, _).
+Authenticated(x, y) :- Red(x, y), Blue(x, w), Authenticated(w, y).
+Authenticated(x, y) :- Red(x, z), Authenticated(z, y), Blue(x, w), Authenticated(w, y).
