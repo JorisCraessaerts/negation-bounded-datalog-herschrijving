@@ -60,7 +60,7 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
                         "Runtime (µs)": relation_runtime
                     })
 
-                # Rule-level timing
+                # Non-recursive rule timing
                 if "non-recursive-rule" in relation_data:
                     for rule, rule_data in relation_data["non-recursive-rule"].items():
                         runtime_us = rule_data["runtime"]["end"] - rule_data["runtime"]["start"]
@@ -73,6 +73,24 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
                             "RuleWrapped": '\n'.join(textwrap.wrap(rule.strip(), width=60)),
                             "Runtime (µs)": runtime_us,
                             "Tuples": tuples
+                        })
+
+                # Recursive rule timing (sum over all iterations)
+                if "recursive-rule" in relation_data:
+                    for rule, iterations in relation_data["recursive-rule"].items():
+                        total_runtime = 0
+                        total_tuples = 0
+                        for it_data in iterations.values():
+                            total_runtime += it_data["runtime"]["end"] - it_data["runtime"]["start"]
+                            total_tuples += it_data.get("num-tuples", 0)
+                        data_rules.append({
+                            "Program": program_name,
+                            "Run": run_id,
+                            "Relation": relation_name,
+                            "Rule": rule.strip(),
+                            "RuleWrapped": '\n'.join(textwrap.wrap(rule.strip(), width=60)),
+                            "Runtime (µs)": total_runtime,
+                            "Tuples": total_tuples
                         })
 
         # Maak boxplots per dataset
@@ -100,6 +118,9 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
             plt.tight_layout()
             plt.savefig(output_dir / f"{program_prefix}_relationwise_runtime_boxplot.png")
             plt.close()
+
+import shutil
+shutil.rmtree("plots", ignore_errors=True)
 
 # Run
 files_to_analyze = [file.stem for file in Path("").glob("*.dl")]
