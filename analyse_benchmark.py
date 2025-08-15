@@ -28,16 +28,17 @@ def annotate_medians(ax, data, x_col, y_col):
         )
 
 def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
-    # Verzamel bestanden per dataset
     datasets = {}
     for file_path in Path(directory).glob(f"{program_prefix}_data_*_run*.json"):
         dataset_name = extract_dataset_name(file_path.stem)
         datasets.setdefault(dataset_name, []).append(file_path)
 
-    # Verwerk per dataset
     for dataset_name, files in datasets.items():
         data_rules = []
         data_relations = []
+        data_relation_totals = []
+        data_tuples_relation = []
+        data_tuples_rule = []
         output_dir = Path(output_root) / dataset_name
         os.makedirs(output_dir, exist_ok=True)
 
@@ -50,7 +51,9 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
             relations = json_data["root"]["program"]["relation"]
 
             for relation_name, relation_data in relations.items():
-                # Relation-level timing
+                total_runtime_relation = 0
+                total_tuples_relation = 0
+
                 if "runtime" in relation_data:
                     relation_runtime = relation_data["runtime"]["end"] - relation_data["runtime"]["start"]
                     data_relations.append({
@@ -60,7 +63,6 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
                         "Runtime (µs)": relation_runtime
                     })
 
-                # Non-recursive rule timing
                 if "non-recursive-rule" in relation_data:
                     for rule, rule_data in relation_data["non-recursive-rule"].items():
                         runtime_us = rule_data["runtime"]["end"] - rule_data["runtime"]["start"]
@@ -74,28 +76,46 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
                             "Runtime (µs)": runtime_us,
                             "Tuples": tuples
                         })
+                        total_runtime_relation += runtime_us
+                        if tuples is not None:
+                            total_tuples_relation += tuples
 
-                # Recursive rule timing (sum over all iterations)
                 if "recursive-rule" in relation_data:
                     for rule, iterations in relation_data["recursive-rule"].items():
-                        total_runtime = 0
-                        total_tuples = 0
+                        total_runtime_rule = 0
+                        total_tuples_rule = 0
                         for it_data in iterations.values():
-                            total_runtime += it_data["runtime"]["end"] - it_data["runtime"]["start"]
-                            total_tuples += it_data.get("num-tuples", 0)
+                            total_runtime_rule += it_data["runtime"]["end"] - it_data["runtime"]["start"]
+                            total_tuples_rule += it_data.get("num-tuples", 0)
                         data_rules.append({
                             "Program": program_name,
                             "Run": run_id,
                             "Relation": relation_name,
                             "Rule": rule.strip(),
                             "RuleWrapped": '\n'.join(textwrap.wrap(rule.strip(), width=60)),
-                            "Runtime (µs)": total_runtime,
-                            "Tuples": total_tuples
+                            "Runtime (µs)": total_runtime_rule,
+                            "Tuples": total_tuples_rule
                         })
+                        total_runtime_relation += total_runtime_rule
+                        total_tuples_relation += total_tuples_rule
 
-        # Maak boxplots per dataset
+                data_relation_totals.append({
+                    "Program": program_name,
+                    "Run": run_id,
+                    "Relation": relation_name,
+                    "Total Runtime (µs)": total_runtime_relation
+                })
+                data_tuples_relation.append({
+                    "Program": program_name,
+                    "Run": run_id,
+                    "Relation": relation_name,
+                    "Total Tuples": total_tuples_relation
+                })
+
         df_rules = pd.DataFrame(data_rules)
         df_relations = pd.DataFrame(data_relations)
+        df_relation_totals = pd.DataFrame(data_relation_totals)
+        df_tuples_relation = pd.DataFrame(data_tuples_relation)
 
         if not df_rules.empty:
             n_rules = df_rules["RuleWrapped"].nunique()
@@ -119,10 +139,30 @@ def analyze_benchmark_files(directory, program_prefix, output_root="plots"):
             plt.savefig(output_dir / f"{program_prefix}_relationwise_runtime_boxplot.png")
             plt.close()
 
+        if not df_relation_totals.empty:
+            plt.figure(figsize=(max(10, df_relation_totals["Relation"].nunique() * 0.8), 6))
+            ax = sns.boxplot(data=df_relation_totals, x="Relation", y="Total Runtime (µs)")
+            plt.title(f"Total runtime (sum over iterations) per relation ({program_prefix}, dataset={dataset_name})")
+            plt.xticks(rotation=45, ha='right', fontsize=9)
+            annotate_medians(ax, df_relation_totals, "Relation", "Total Runtime (µs)")
+            plt.tight_layout()
+            plt.savefig(output_dir / f"{program_prefix}_relation_total_runtime_boxplot.png")
+            plt.close()
+
+        if not df_tuples_relation.empty:
+            plt.figure(figsize=(max(10, df_tuples_relation["Relation"].nunique() * 0.8), 6))
+            ax = sns.boxplot(data=df_tuples_relation, x="Relation", y="Total Tuples")
+            plt.title(f"Total tuples per relation ({program_prefix}, dataset={dataset_name})")
+            plt.xticks(rotation=45, ha='right', fontsize=9)
+            annotate_medians(ax, df_tuples_relation, "Relation", "Total Tuples")
+            plt.tight_layout()
+            plt.savefig(output_dir / f"{program_prefix}_relation_total_tuples_boxplot.png")
+            plt.close()
+
 import shutil
 shutil.rmtree("plots", ignore_errors=True)
 
-# Run
+# Run example
 files_to_analyze = [file.stem for file in Path("").glob("*.dl")]
 for file in files_to_analyze:
     analyze_benchmark_files("benchmarks", file)

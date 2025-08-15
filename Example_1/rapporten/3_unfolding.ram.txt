@@ -1,0 +1,156 @@
+PROGRAM
+ DECLARATION
+  edge(x:i:number,y:i:number) 
+  +disconnected0 nullary
+  result_positive_rewritten(x:i:number,y:i:number) 
+ END DECLARATION
+ SUBROUTINE +disconnected0
+  DEBUG "+disconnected0() :- \n   edge(_,_).\nin file 3_unfolding.dl [6:1-6:23]"
+   QUERY
+    IF (ISEMPTY(+disconnected0) AND (NOT ISEMPTY(edge)))
+     INSERT () INTO +disconnected0
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE edge
+  IO edge (IO="file",attributeNames="x\ty",auxArity="0",fact-dir=".",name="edge",operation="input",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+ END SUBROUTINE
+ SUBROUTINE result_positive_rewritten
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).\nin file 3_unfolding.dl [16:1-19:16]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1,t0.0) IN edge
+       INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.\nin file 3_unfolding.dl [31:1-33:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t0.1 != t1.1) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t0.1 != t2.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.\nin file 3_unfolding.dl [34:1-36:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t0.1 != t1.1) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t2.0 != t0.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.\nin file 3_unfolding.dl [40:1-42:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t0.1 != t1.1) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE ((t2.0 != t0.0) AND (t0.1 != t2.0))
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.\nin file 3_unfolding.dl [45:1-47:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t1.1 != t0.0) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t0.1 != t2.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.\nin file 3_unfolding.dl [48:1-50:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t1.1 != t0.0) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t2.0 != t0.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.\nin file 3_unfolding.dl [54:1-56:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE ((t1.1 != t0.0) AND (t0.0 != t1.1))
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE ((t2.0 != t0.0) AND (t0.1 != t2.0))
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.\nin file 3_unfolding.dl [59:1-61:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t0.1 != t1.1)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t0.1 != t2.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.\nin file 3_unfolding.dl [62:1-64:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t0.1 != t1.1)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t2.0 != t0.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.\nin file 3_unfolding.dl [68:1-70:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t0.1 != t1.1)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE ((t2.0 != t0.0) AND (t0.1 != t2.0))
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.\nin file 3_unfolding.dl [73:1-75:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1 != t0.0)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t0.1 != t2.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.\nin file 3_unfolding.dl [76:1-78:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1 != t0.0)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t2.0 != t0.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.\nin file 3_unfolding.dl [82:1-84:41]"
+   QUERY
+    IF ((NOT ISEMPTY(+disconnected0)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF ((t0.0 != t0.1) AND (t0.1 != t0.0))
+       IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1 != t0.0)
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE ((t2.0 != t0.0) AND (t0.1 != t2.0))
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  IO result_positive_rewritten (IO="file",attributeNames="x\ty",auxArity="0",name="result_positive_rewritten",operation="output",output-dir=".",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+  CLEAR +disconnected0
+  CLEAR edge
+ END SUBROUTINE
+ BEGIN MAIN
+  CALL stratum_edge
+  CALL stratum_+disconnected0
+  CALL stratum_result_positive_rewritten
+ END MAIN
+END PROGRAM

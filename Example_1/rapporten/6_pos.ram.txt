@@ -1,0 +1,35 @@
+PROGRAM
+ DECLARATION
+  edge(x:i:number,y:i:number) 
+  result_positive_rewritten(x:i:number,y:i:number) 
+ END DECLARATION
+ SUBROUTINE edge
+  IO edge (IO="file",attributeNames="x\ty",auxArity="0",fact-dir=".",name="edge",operation="input",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+ END SUBROUTINE
+ SUBROUTINE result_positive_rewritten
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).\nin file 6_laatste_optimalisaties.dl [10:1-13:16]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1,t0.0) IN edge
+       INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  DEBUG "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   edge(z2,x),\n   x != y,\n   z1 != z2.\nin file 6_laatste_optimalisaties.dl [16:1-21:14]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       FOR t1 IN edge ON INDEX t1.0 = t0.1
+        IF EXISTS t2 IN edge ON INDEX t2.1 = t0.0 WHERE (t1.1 != t2.0)
+         INSERT (t0.0, t0.1) INTO result_positive_rewritten
+   END QUERY
+  END DEBUG
+  IO result_positive_rewritten (IO="file",attributeNames="x\ty",auxArity="0",name="result_positive_rewritten",operation="output",output-dir=".",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+  CLEAR edge
+ END SUBROUTINE
+ BEGIN MAIN
+  CALL stratum_edge
+  CALL stratum_result_positive_rewritten
+ END MAIN
+END PROGRAM

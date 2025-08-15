@@ -1,0 +1,95 @@
+semi-positief:
+---------------------------------------------------------------------------------------
+
+mkdir -p output_semi
+souffle 0_origineel_programma_bounded_negation_voor_herschrijving.dl \
+  --debug-report=semi.html \
+  -F facts/data_500nodes_0p1density \
+  -D output_semi \
+  -j 1
+
+
+
+souffle 0_origineel_programma_bounded_negation_voor_herschrijving.dl \
+  -o prog_semi \
+  -p semi.profile
+
+
+mkdir -p output_semi_bin
+./prog_semi \
+  -F facts/data_500nodes_0p1density \
+  -D output_semi_bin \
+  -p semi.profile \
+  -j 1
+
+
+souffleprof semi.profile -j
+
+
+
+positief:---------------------------------------------------------------------------------------------------
+mkdir -p output_pos
+souffle 6_laatste_optimalisaties.dl \
+  --debug-report=pos.html \
+  -F facts/data_500nodes_0p1density \
+  -D output_pos \
+  -j 1
+
+
+
+souffle 6_laatste_optimalisaties.dl \
+  -o prog_pos \
+  -p pos.profile
+
+
+mkdir -p output_pos_bin
+./prog_pos \
+  -F facts/data_500nodes_0p1density \
+  -D output_pos_bin \
+  -p pos.profile \
+  -j 1
+
+
+
+
+RAMs verkrijgen en precedence graphs enzo
+------------------------------------------------------------------------------------------------------------------------
+
+0_origineel_programma_bounded_negation_voor_herschrijving.dl
+------------------------------------------------------------
+souffle 0_origineel_programma_bounded_negation_voor_herschrijving.dl --show=transformed-ram > semi.ram.txt
+souffle 0_origineel_programma_bounded_negation_voor_herschrijving.dl --show=precedence-graph > semi.precedencegraph.txt
+souffle 0_origineel_programma_bounded_negation_voor_herschrijving.dl --show=scc-graph > semi.sccgraph.txt
+
+
+2_proposition_3.9_toegepast.dl
+------------------------------------------------------------
+souffle 2_proposition_3.9_toegepast.dl --show=transformed-ram > prop_3_9.ram.txt
+souffle 2_proposition_3.9_toegepast.dl --show=precedence-graph > prop_3_9.precedencegraph.txt
+souffle 2_proposition_3.9_toegepast.dl --show=scc-graph > prop_3_9.sccgraph.txt
+
+
+0_origineel_programma_bounded_negation_voor_herschrijving.dl
+------------------------------------------------------------
+souffle 3_unfolding.dl --show=transformed-ram > unfolding.ram.txt
+souffle 3_unfolding.dl --show=precedence-graph > unfolding.precedencegraph.txt
+souffle 3_unfolding.dl --show=scc-graph > unfolding.sccgraph.txt
+
+
+6_laatste_optimalisaties.dl
+------------------------------------------------------------
+souffle 6_laatste_optimalisaties.dl --show=transformed-ram > pos.ram.txt
+souffle 6_laatste_optimalisaties.dl --show=precedence-graph > pos.precedencegraph.txt
+souffle 6_laatste_optimalisaties.dl --show=scc-graph > pos.sccgraph.txt
+
+
+
+
+
+
+
+
+
+
+
+

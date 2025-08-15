@@ -7,8 +7,8 @@ PROJECT_DIRS=(
     "Positive_To_Negative_Example_1:blue_red"
 )
 DATASETS=(
-    "500 0.02"  # Ijle graaf
-    # "500 0.1"   # Matige dichtheid
+    #"500 0.02"  # Ijle graaf
+     "500 0.1"   # Matige dichtheid
     # "500 0.5"   # Dicht
     # "500 1.0"   # Volledig
 )

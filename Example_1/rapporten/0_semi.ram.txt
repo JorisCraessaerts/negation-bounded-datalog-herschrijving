@@ -1,0 +1,59 @@
+PROGRAM
+ DECLARATION
+  edge(x:i:number,y:i:number) 
+  T1(x:i:number,y:i:number) 
+  T2(x:i:number,y:i:number) 
+  result_bounded_negation(x:i:number,y:i:number) 
+ END DECLARATION
+ SUBROUTINE T1
+  DEBUG "T1(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   !edge(z,x).\nin file 0_origineel_programma_bounded_negation_voor_herschrijving.dl [7:1-7:49]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (NOT (t1.1,t0.0) IN edge)
+       INSERT (t0.0, t0.1) INTO T1
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE T2
+  DEBUG "T2(x,y) :- \n   edge(x,y),\n   !edge(y,z),\n   edge(z,x).\nin file 0_origineel_programma_bounded_negation_voor_herschrijving.dl [11:1-11:49]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.1 = t0.0 WHERE (NOT (t0.1,t1.0) IN edge)
+       INSERT (t0.0, t0.1) INTO T2
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE edge
+  IO edge (IO="file",attributeNames="x\ty",auxArity="0",fact-dir=".",name="edge",operation="input",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+ END SUBROUTINE
+ SUBROUTINE result_bounded_negation
+  DEBUG "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).\nin file 0_origineel_programma_bounded_negation_voor_herschrijving.dl [17:1-17:69]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1,t0.0) IN edge
+       INSERT (t0.0, t0.1) INTO result_bounded_negation
+   END QUERY
+  END DEBUG
+  DEBUG "result_bounded_negation(x,y) :- \n   T1(x,y),\n   T2(x,y),\n   x != y.\nin file 0_origineel_programma_bounded_negation_voor_herschrijving.dl [18:1-18:61]"
+   QUERY
+    IF ((NOT ISEMPTY(T1)) AND (NOT ISEMPTY(T2)))
+     FOR t0 IN T1
+      IF ((t0.0 != t0.1) AND (t0.0,t0.1) IN T2)
+       INSERT (t0.0, t0.1) INTO result_bounded_negation
+   END QUERY
+  END DEBUG
+  IO result_bounded_negation (IO="file",attributeNames="x\ty",auxArity="0",name="result_bounded_negation",operation="output",output-dir=".",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+  CLEAR T1
+  CLEAR T2
+  CLEAR edge
+ END SUBROUTINE
+ BEGIN MAIN
+  CALL stratum_edge
+  CALL stratum_T1
+  CALL stratum_T2
+  CALL stratum_result_bounded_negation
+ END MAIN
+END PROGRAM

@@ -1,0 +1,170 @@
+PROGRAM
+ DECLARATION
+  edge(x:i:number,y:i:number) 
+  adom(x:i:number) 
+  T1(p_z:i:number,p_x:i:number,p_x2:i:number,p_y2:i:number,original_x:i:number,original_y:i:number) 
+  T2(p_x1:i:number,p_y1:i:number,p_y:i:number,p_z:i:number,original_x:i:number,original_y:i:number) 
+  output0(p_x1:i:number,p_y1:i:number,p_x2:i:number,p_y2:i:number,x:i:number,y:i:number) 
+  result_conflict_free(x:i:number,y:i:number) 
+ END DECLARATION
+ SUBROUTINE T1
+  DEBUG "T1(z,x,x2,y2,x,y) :- \n   edge(x,y),\n   edge(y,z),\n   adom(x2),\n   adom(y2),\n   x != z,\n   y != z.\nin file 2_proposition_3.9_toegepast.dl [11:1-16:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      FOR t1 IN edge ON INDEX t1.0 = t0.1
+       IF ((t0.0 != t1.1) AND (t0.1 != t1.1))
+        FOR t2 IN adom
+         FOR t3 IN adom
+          INSERT (t1.1, t0.0, t2.0, t3.0, t0.0, t0.1) INTO T1
+   END QUERY
+  END DEBUG
+  DEBUG "T1(z,x,x2,y2,x,y) :- \n   edge(x,y),\n   edge(y,z),\n   adom(x2),\n   adom(y2),\n   x != z,\n   z != x.\nin file 2_proposition_3.9_toegepast.dl [18:1-23:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      FOR t1 IN edge ON INDEX t1.0 = t0.1
+       IF ((t0.0 != t1.1) AND (t1.1 != t0.0))
+        FOR t2 IN adom
+         FOR t3 IN adom
+          INSERT (t1.1, t0.0, t2.0, t3.0, t0.0, t0.1) INTO T1
+   END QUERY
+  END DEBUG
+  DEBUG "T1(z,x,x2,y2,x,y) :- \n   edge(x,y),\n   edge(y,z),\n   adom(x2),\n   adom(y2),\n   y != x,\n   y != z.\nin file 2_proposition_3.9_toegepast.dl [25:1-30:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.1 != t0.0)
+       FOR t1 IN edge ON INDEX t1.0 = t0.1
+        IF (t0.1 != t1.1)
+         FOR t2 IN adom
+          FOR t3 IN adom
+           INSERT (t1.1, t0.0, t2.0, t3.0, t0.0, t0.1) INTO T1
+   END QUERY
+  END DEBUG
+  DEBUG "T1(z,x,x2,y2,x,y) :- \n   edge(x,y),\n   edge(y,z),\n   adom(x2),\n   adom(y2),\n   y != x,\n   z != x.\nin file 2_proposition_3.9_toegepast.dl [32:1-37:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.1 != t0.0)
+       FOR t1 IN edge ON INDEX t1.0 = t0.1
+        IF (t1.1 != t0.0)
+         FOR t2 IN adom
+          FOR t3 IN adom
+           INSERT (t1.1, t0.0, t2.0, t3.0, t0.0, t0.1) INTO T1
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE T2
+  DEBUG "T2(x1,y1,y,z,x,y) :- \n   edge(x,y),\n   edge(z,x),\n   adom(x1),\n   adom(y1),\n   x != y,\n   y != z.\nin file 2_proposition_3.9_toegepast.dl [41:1-46:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       FOR t1 IN edge ON INDEX t1.1 = t0.0
+        IF (t0.1 != t1.0)
+         FOR t2 IN adom
+          FOR t3 IN adom
+           INSERT (t2.0, t3.0, t0.1, t1.0, t0.0, t0.1) INTO T2
+   END QUERY
+  END DEBUG
+  DEBUG "T2(x1,y1,y,z,x,y) :- \n   edge(x,y),\n   edge(z,x),\n   adom(x1),\n   adom(y1),\n   x != y,\n   z != x.\nin file 2_proposition_3.9_toegepast.dl [48:1-53:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF (t0.0 != t0.1)
+       FOR t1 IN edge ON INDEX t1.1 = t0.0
+        IF (t1.0 != t0.0)
+         FOR t2 IN adom
+          FOR t3 IN adom
+           INSERT (t2.0, t3.0, t0.1, t1.0, t0.0, t0.1) INTO T2
+   END QUERY
+  END DEBUG
+  DEBUG "T2(x1,y1,y,z,x,y) :- \n   edge(x,y),\n   edge(z,x),\n   adom(x1),\n   adom(y1),\n   y != z.\nin file 2_proposition_3.9_toegepast.dl [55:1-60:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      FOR t1 IN edge ON INDEX t1.1 = t0.0
+       IF (t0.1 != t1.0)
+        FOR t2 IN adom
+         FOR t3 IN adom
+          INSERT (t2.0, t3.0, t0.1, t1.0, t0.0, t0.1) INTO T2
+   END QUERY
+  END DEBUG
+  DEBUG "T2(x1,y1,y,z,x,y) :- \n   edge(x,y),\n   edge(z,x),\n   adom(x1),\n   adom(y1),\n   y != z,\n   z != x.\nin file 2_proposition_3.9_toegepast.dl [62:1-67:12]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      FOR t1 IN edge ON INDEX t1.1 = t0.0
+       IF ((t0.1 != t1.0) AND (t1.0 != t0.0))
+        FOR t2 IN adom
+         FOR t3 IN adom
+          INSERT (t2.0, t3.0, t0.1, t1.0, t0.0, t0.1) INTO T2
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE adom
+  DEBUG "adom(x) :- \n   edge(x,_).\nin file 2_proposition_3.9_toegepast.dl [6:1-6:23]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      INSERT (t0.0) INTO adom
+   END QUERY
+  END DEBUG
+  DEBUG "adom(x) :- \n   edge(_,x).\nin file 2_proposition_3.9_toegepast.dl [7:1-7:23]"
+   QUERY
+    IF (NOT ISEMPTY(edge))
+     FOR t0 IN edge
+      INSERT (t0.1) INTO adom
+   END QUERY
+  END DEBUG
+ END SUBROUTINE
+ SUBROUTINE edge
+  IO edge (IO="file",attributeNames="x\ty",auxArity="0",fact-dir=".",name="edge",operation="input",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+ END SUBROUTINE
+ SUBROUTINE output0
+  DEBUG "output0(x1,y1,x2,y2,x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x),\n   adom(x1),\n   adom(y1),\n   adom(x2),\n   adom(y2).\nin file 2_proposition_3.9_toegepast.dl [71:1-76:24]"
+   QUERY
+    IF ((NOT ISEMPTY(adom)) AND (NOT ISEMPTY(edge)))
+     FOR t0 IN edge
+      IF EXISTS t1 IN edge ON INDEX t1.0 = t0.1 WHERE (t1.1,t0.0) IN edge
+       FOR t2 IN adom
+        FOR t3 IN adom
+         FOR t4 IN adom
+          FOR t5 IN adom
+           INSERT (t2.0, t3.0, t4.0, t5.0, t0.0, t0.1) INTO output0
+   END QUERY
+  END DEBUG
+  DEBUG "output0(x1,y1,x2,y2,x,y) :- \n   T1(x1,y1,x2,y2,x,y),\n   T2(x1,y1,x2,y2,x,y),\n   x != y.\nin file 2_proposition_3.9_toegepast.dl [79:1-82:12]"
+   QUERY
+    IF ((NOT ISEMPTY(T1)) AND (NOT ISEMPTY(T2)))
+     FOR t0 IN T1
+      IF ((t0.4 != t0.5) AND (t0.0,t0.1,t0.2,t0.3,t0.4,t0.5) IN T2)
+       INSERT (t0.0, t0.1, t0.2, t0.3, t0.4, t0.5) INTO output0
+   END QUERY
+  END DEBUG
+  CLEAR T1
+  CLEAR T2
+  CLEAR adom
+  CLEAR edge
+ END SUBROUTINE
+ SUBROUTINE result_conflict_free
+  DEBUG "result_conflict_free(x,y) :- \n   output0(_,_,_,_,x,y).\nin file 2_proposition_3.9_toegepast.dl [87:1-87:57]"
+   QUERY
+    IF (NOT ISEMPTY(output0))
+     FOR t0 IN output0
+      INSERT (t0.4, t0.5) INTO result_conflict_free
+   END QUERY
+  END DEBUG
+  IO result_conflict_free (IO="file",attributeNames="x\ty",auxArity="0",name="result_conflict_free",operation="output",output-dir=".",params="{\"records\": {}, \"relation\": {\"arity\": 2, \"params\": [\"x\", \"y\"]}}",types="{\"ADTs\": {}, \"records\": {}, \"relation\": {\"arity\": 2, \"types\": [\"i:number\", \"i:number\"]}}")
+  CLEAR output0
+ END SUBROUTINE
+ BEGIN MAIN
+  CALL stratum_edge
+  CALL stratum_adom
+  CALL stratum_T1
+  CALL stratum_T2
+  CALL stratum_output0
+  CALL stratum_result_conflict_free
+ END MAIN
+END PROGRAM
