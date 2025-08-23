@@ -1,0 +1,18 @@
+// Input: directed edges in a graph
+.decl edge(x:number, y:number)
+.input edge
+
+// Output: triangle OR two "opposite" open triangles
+.decl result_bounded_negation(x:number, y:number)
+.output result_bounded_negation
+
+// closed triangle
+result_bounded_negation(x, y) :-
+    edge(x, y), edge(y, z), edge(z, x).
+
+// unfolded: two opposite open triangles (z1 for T1, z2 for T2)
+result_bounded_negation(x, y) :-
+    edge(x, y),
+    edge(y, z1),        !edge(z1, x),   // from T1(x,y)
+    edge(z2, x),        !edge(y, z2),   // from T2(x,y)
+    x != y.

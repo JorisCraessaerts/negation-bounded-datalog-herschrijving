@@ -1,0 +1,256 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "3_unfolding.dl",
+    "fact-dir": "facts/data_50nodes_0p02density",
+    "jobs": "1",
+    "output-dir": "__tmp_3_unfolding__data_50nodes_0p02density__noopt__run2",
+    "relationCount": "3",
+    "version": "2.4"
+   },
+   "relation": {
+    "+disconnected0": {
+     "maxRSS": {
+      "post": 4736,
+      "pre": 4736
+     },
+     "non-recursive-rule": {
+      "+disconnected0() :- \n   edge(_,_).": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 1,
+       "runtime": { "start": 1755945850160183, "end": 1755945850160185},
+       "source-locator": "3_unfolding.dl [6:1-6:23]"
+      }
+     },
+     "num-tuples": 1,
+     "runtime": { "start": 1755945850160180, "end": 1755945850160196},
+     "source-locator": " [1:1-1:1]"
+    },
+    "edge": {
+     "loadtime": { "start": 1755945850159999, "end": 1755945850160168},
+     "num-tuples": 50,
+     "source-locator": "3_unfolding.dl [1:7-1:11]"
+    },
+    "result_positive_rewritten": {
+     "maxRSS": {
+      "post": 4864,
+      "pre": 4736
+     },
+     "non-recursive-rule": {
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160208, "end": 1755945850160219},
+       "source-locator": "3_unfolding.dl [16:1-19:16]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 23,
+       "runtime": { "start": 1755945850160229, "end": 1755945850160246},
+       "source-locator": "3_unfolding.dl [31:1-33:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160257, "end": 1755945850160269},
+       "source-locator": "3_unfolding.dl [34:1-36:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160285, "end": 1755945850160301},
+       "source-locator": "3_unfolding.dl [40:1-42:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160316, "end": 1755945850160330},
+       "source-locator": "3_unfolding.dl [45:1-47:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160346, "end": 1755945850160360},
+       "source-locator": "3_unfolding.dl [48:1-50:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   x != z1,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160372, "end": 1755945850160387},
+       "source-locator": "3_unfolding.dl [54:1-56:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160401, "end": 1755945850160416},
+       "source-locator": "3_unfolding.dl [59:1-61:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160433, "end": 1755945850160447},
+       "source-locator": "3_unfolding.dl [62:1-64:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   y != z1,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160460, "end": 1755945850160478},
+       "source-locator": "3_unfolding.dl [68:1-70:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   y != z2.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160490, "end": 1755945850160504},
+       "source-locator": "3_unfolding.dl [73:1-75:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   x != y,\n   z2 != x.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160517, "end": 1755945850160530},
+       "source-locator": "3_unfolding.dl [76:1-78:41]"
+      },
+      "result_positive_rewritten(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   y != x,\n   z1 != x,\n   edge(z2,x),\n   +disconnected0(),\n   y != z2,\n   z2 != x,\n   x != y.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945850160543, "end": 1755945850160557},
+       "source-locator": "3_unfolding.dl [82:1-84:41]"
+      }
+     },
+     "num-tuples": 23,
+     "runtime": { "start": 1755945850160205, "end": 1755945850160577},
+     "savetime": { "start": 1755945850160588, "end": 1755945850160727},
+     "source-locator": "3_unfolding.dl [10:7-10:32]"
+    }
+   },
+   "runtime": { "start": 1755945850159997, "end": 1755945850160735},
+   "starttime": { "time": 1755945850159987},
+   "usage": {
+    "timepoint": {
+     "1755945850160002": {
+      "maxRSS": 4480,
+      "systemtime": 1230,
+      "usertime": 1230
+     },
+     "1755945850160192": {
+      "maxRSS": 4736,
+      "systemtime": 1364,
+      "usertime": 1364
+     },
+     "1755945850160213": {
+      "maxRSS": 4736,
+      "systemtime": 1382,
+      "usertime": 1382
+     },
+     "1755945850160238": {
+      "maxRSS": 4736,
+      "systemtime": 1398,
+      "usertime": 1398
+     },
+     "1755945850160265": {
+      "maxRSS": 4736,
+      "systemtime": 1417,
+      "usertime": 1417
+     },
+     "1755945850160295": {
+      "maxRSS": 4736,
+      "systemtime": 1438,
+      "usertime": 1438
+     },
+     "1755945850160326": {
+      "maxRSS": 4736,
+      "systemtime": 1460,
+      "usertime": 1460
+     },
+     "1755945850160355": {
+      "maxRSS": 4736,
+      "systemtime": 1484,
+      "usertime": 1484
+     },
+     "1755945850160381": {
+      "maxRSS": 4736,
+      "systemtime": 1503,
+      "usertime": 1503
+     },
+     "1755945850160411": {
+      "maxRSS": 4736,
+      "systemtime": 1523,
+      "usertime": 1523
+     },
+     "1755945850160443": {
+      "maxRSS": 4864,
+      "systemtime": 1546,
+      "usertime": 1546
+     },
+     "1755945850160469": {
+      "maxRSS": 4864,
+      "systemtime": 1565,
+      "usertime": 1565
+     },
+     "1755945850160499": {
+      "maxRSS": 4864,
+      "systemtime": 1587,
+      "usertime": 1587
+     },
+     "1755945850160526": {
+      "maxRSS": 4864,
+      "systemtime": 1606,
+      "usertime": 1606
+     },
+     "1755945850160552": {
+      "maxRSS": 4864,
+      "systemtime": 1624,
+      "usertime": 1624
+     },
+     "1755945850160596": {
+      "maxRSS": 4864,
+      "systemtime": 1651,
+      "usertime": 1651
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,127 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "0_origineel_programma_bounded_negation_voor_herschrijving.dl",
+    "fact-dir": "facts/data_50nodes_0p02density",
+    "jobs": "1",
+    "output-dir": "__tmp_0_origineel_programma_bounded_negation_voor_herschrijving__data_50nodes_0p02density__std__run29",
+    "relationCount": "4",
+    "version": "2.4"
+   },
+   "relation": {
+    "T1": {
+     "maxRSS": {
+      "post": 4736,
+      "pre": 4736
+     },
+     "non-recursive-rule": {
+      "T1(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   !edge(z,x).": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 31,
+       "runtime": { "start": 1755945754403530, "end": 1755945754403546},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [7:1-7:49]"
+      }
+     },
+     "num-tuples": 31,
+     "runtime": { "start": 1755945754403527, "end": 1755945754403558},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [6:7-6:9]"
+    },
+    "T2": {
+     "maxRSS": {
+      "post": 4736,
+      "pre": 4736
+     },
+     "non-recursive-rule": {
+      "T2(x,y) :- \n   edge(x,y),\n   !edge(y,z),\n   edge(z,x).": {
+       "maxRSS": {
+        "post": 4736,
+        "pre": 4736
+       },
+       "num-tuples": 36,
+       "runtime": { "start": 1755945754403567, "end": 1755945754403582},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [11:1-11:49]"
+      }
+     },
+     "num-tuples": 36,
+     "runtime": { "start": 1755945754403565, "end": 1755945754403592},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [10:7-10:9]"
+    },
+    "edge": {
+     "loadtime": { "start": 1755945754403366, "end": 1755945754403516},
+     "num-tuples": 50,
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [2:7-2:11]"
+    },
+    "result_bounded_negation": {
+     "maxRSS": {
+      "post": 4864,
+      "pre": 4864
+     },
+     "non-recursive-rule": {
+      "result_bounded_negation(x,y) :- \n   T1(x,y),\n   T2(x,y),\n   x != y.": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 23,
+       "runtime": { "start": 1755945754403623, "end": 1755945754403631},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [18:1-18:61]"
+      },
+      "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "maxRSS": {
+        "post": 4864,
+        "pre": 4864
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945754403602, "end": 1755945754403613},
+       "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [17:1-17:69]"
+      }
+     },
+     "num-tuples": 23,
+     "runtime": { "start": 1755945754403600, "end": 1755945754403641},
+     "savetime": { "start": 1755945754403648, "end": 1755945754403753},
+     "source-locator": "0_origineel_programma_bounded_negation_voor_herschrijving.dl [14:7-14:30]"
+    }
+   },
+   "runtime": { "start": 1755945754403365, "end": 1755945754403760},
+   "starttime": { "time": 1755945754403358},
+   "usage": {
+    "timepoint": {
+     "1755945754403358": {
+      "maxRSS": 4480,
+      "systemtime": 1885,
+      "usertime": 0
+     },
+     "1755945754403535": {
+      "maxRSS": 4736,
+      "systemtime": 2136,
+      "usertime": 0
+     },
+     "1755945754403571": {
+      "maxRSS": 4736,
+      "systemtime": 2183,
+      "usertime": 0
+     },
+     "1755945754403606": {
+      "maxRSS": 4864,
+      "systemtime": 2226,
+      "usertime": 0
+     },
+     "1755945754403628": {
+      "maxRSS": 4864,
+      "systemtime": 2255,
+      "usertime": 0
+     },
+     "1755945754403653": {
+      "maxRSS": 4864,
+      "systemtime": 2287,
+      "usertime": 0
+     }
+    }
+   }
+  }
+ }
+}

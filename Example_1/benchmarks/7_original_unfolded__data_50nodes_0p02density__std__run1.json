@@ -1,0 +1,77 @@
+{
+ "root": {
+  "program": {
+   "configuration": {
+    "": "7_original_unfolded.dl",
+    "fact-dir": "facts/data_50nodes_0p02density",
+    "jobs": "1",
+    "output-dir": "__tmp_7_original_unfolded__data_50nodes_0p02density__std__run1",
+    "relationCount": "2",
+    "version": "2.4"
+   },
+   "relation": {
+    "edge": {
+     "loadtime": { "start": 1755945947573247, "end": 1755945947573384},
+     "num-tuples": 50,
+     "source-locator": "7_original_unfolded.dl [2:7-2:11]"
+    },
+    "result_bounded_negation": {
+     "maxRSS": {
+      "post": 4608,
+      "pre": 4608
+     },
+     "non-recursive-rule": {
+      "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z),\n   edge(z,x).": {
+       "maxRSS": {
+        "post": 4608,
+        "pre": 4608
+       },
+       "num-tuples": 0,
+       "runtime": { "start": 1755945947573397, "end": 1755945947573407},
+       "source-locator": "7_original_unfolded.dl [10:1-11:40]"
+      },
+      "result_bounded_negation(x,y) :- \n   edge(x,y),\n   edge(y,z1),\n   !edge(z1,x),\n   edge(z2,x),\n   !edge(y,z2),\n   x != y.": {
+       "maxRSS": {
+        "post": 4608,
+        "pre": 4608
+       },
+       "num-tuples": 23,
+       "runtime": { "start": 1755945947573421, "end": 1755945947573439},
+       "source-locator": "7_original_unfolded.dl [14:1-18:12]"
+      }
+     },
+     "num-tuples": 23,
+     "runtime": { "start": 1755945947573394, "end": 1755945947573450},
+     "savetime": { "start": 1755945947573457, "end": 1755945947573569},
+     "source-locator": "7_original_unfolded.dl [6:7-6:30]"
+    }
+   },
+   "runtime": { "start": 1755945947573246, "end": 1755945947573575},
+   "starttime": { "time": 1755945947573239},
+   "usage": {
+    "timepoint": {
+     "1755945947573239": {
+      "maxRSS": 4480,
+      "systemtime": 945,
+      "usertime": 945
+     },
+     "1755945947573401": {
+      "maxRSS": 4608,
+      "systemtime": 1054,
+      "usertime": 1054
+     },
+     "1755945947573427": {
+      "maxRSS": 4608,
+      "systemtime": 1071,
+      "usertime": 1071
+     },
+     "1755945947573463": {
+      "maxRSS": 4608,
+      "systemtime": 1093,
+      "usertime": 1093
+     }
+    }
+   }
+  }
+ }
+}
