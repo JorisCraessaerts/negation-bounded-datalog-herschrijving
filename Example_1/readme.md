@@ -16,14 +16,4 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 
-python analyze_souffleprof_txt.py \
-  --prof-dir ./benchmarks/souffleprof \
-  --out-dir ./analysis_txt \
-  --min-runs 5
-
-
-python analyze_benchmarks_json.py \
-  --bench-dir ./benchmarks \
-  --out-dir ./analysis_json \
-  --min-runs 5 \
-  --run-tests
+python analyze_benchmarks_json.py   --bench-dir ./benchmarks   --out-dir ./analysis_json   --min-runs 5
