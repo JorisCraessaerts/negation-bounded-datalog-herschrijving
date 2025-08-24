@@ -1,24 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-Analyze Soufflé JSON profiles (one JSON per run) and produce:
-- tidy CSVs: runs.csv, relations.csv, rules.csv
-- plots: total runtime by rewrite (per dataset & variant), medians, and relation breakdown
-- optional statistical tests across rewrites and between std vs noopt
-
-Usage:
-  python analyze_benchmarks_json.py \
-      --bench-dir ./benchmarks \
-      --out-dir ./analysis_json \
-      --min-runs 5 \
-      --run-tests
-
-The script expects filenames like:
-  <program_name>__data_<dataset>__<variant>__run<id>.json
-e.g.
-  3_unfolding__data_5000nodes_0p1density__noopt__run24.json
-"""
 
 import argparse
 import json
@@ -32,7 +12,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# seaborn is optional (nice styles); plots still render with pure matplotlib if missing
 try:
     import seaborn as sns
     _HAS_SNS = True
@@ -54,7 +33,7 @@ except Exception:
     _HAS_SCIPY = False
 
 
-# --------------------------- filename parsing ---------------------------
+# filename parsing
 
 FNAME_RE = re.compile(
     r"""^(?P<program>.+?)__data_(?P<dataset>.+?)__(?P<variant>std|noopt)__(?:run)?(?P<run>\d+)$""",
@@ -73,7 +52,7 @@ def parse_filename(stem: str) -> Optional[Dict[str, Any]]:
     return d
 
 
-# ------------------------- JSON safe access helpers ---------------------
+# JSON access helpers 
 
 def duration_us(obj: Optional[Dict[str, Any]]) -> Optional[int]:
     """Return end-start if both present; else None."""
@@ -113,7 +92,7 @@ def to_s(us: Optional[int]) -> Optional[float]:
     return None if us is None else us / 1_000_000.0
 
 
-# ------------------------------- parsing --------------------------------
+# parsing 
 
 def parse_profile_file(path: Path) -> Optional[Dict[str, pd.DataFrame]]:
     """Return dict with 'run','relations','rules' DataFrames for a single JSON."""
@@ -203,9 +182,7 @@ def parse_profile_file(path: Path) -> Optional[Dict[str, pd.DataFrame]]:
     return {"run": df_run, "relations": df_rel, "rules": df_rules}
 
 
-# ------------------------------- plotting --------------------------------
-# (NIET AANGEPAST — gelaten zoals je had)
-
+# plotting 
 def _maybe_set_style():
     plt.rcParams.update({
         "axes.titlesize": 10,
@@ -362,7 +339,7 @@ def plot_relation_breakdown(df_rel: pd.DataFrame, df_runs: pd.DataFrame, out_dir
         plt.savefig(out, dpi=150, bbox_inches="tight")
         plt.close()
 
-# ---------- memory plot (ONAANGEPAST) ----------
+# memory plot
 def plot_memory_box(df_runs: pd.DataFrame, out_dir: Path):
     if df_runs.empty or "peak_rss_kb" not in df_runs.columns:
         return
@@ -391,7 +368,7 @@ def plot_memory_box(df_runs: pd.DataFrame, out_dir: Path):
         plt.close()
 
 
-# ------------------------------- statistics helpers (NIEUW/UITGEBREID) ------------------------------
+# statistics helpers
 
 def _epsilon_squared_kw(H: float, k: int, N: int) -> float:
     if N <= 0 or k <= 1:
@@ -435,7 +412,7 @@ def _wilcoxon_effects(x, y):
     if n == 0:
         return dict(W=np.nan, p=np.nan, Z=np.nan, r=np.nan, rank_biserial=np.nan, n_pairs=0)
     W, p = stats.wilcoxon(diffs)
-    # Z-approximatie (continuïteitscorrectie niet toegepast)
+    # Z-approximatie
     mean_W = n*(n+1)/4.0
     var_W = n*(n+1)*(2*n+1)/24.0
     Z = (W - mean_W) / math.sqrt(var_W) if var_W > 0 else np.nan
@@ -519,7 +496,7 @@ def _bh_fdr(pvals: pd.Series) -> pd.Series:
     return pd.Series(q, index=pvals.index)
 
 
-# ---------- uitgebreide statistiek (plots ongemoeid) ----------
+# uitgebreide statistiek 
 def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
     """Inferentiële tests + effect sizes + HL met CI + transparantie + FDR-BH."""
     stats_dir = out_dir / "stats"
@@ -527,7 +504,7 @@ def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
 
     has_scipy = _HAS_SCIPY
 
-    # 1) Summary per (dataset, variant, program) met robuuste maten en cv
+    # 1) Summary per (dataset, variant, program)
     def _iqr(x):
         return float(np.percentile(x, 75) - np.percentile(x, 25))
     summary = (df_runs
@@ -577,7 +554,7 @@ def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
                 "group_ns": "|".join([f"{lab}:{sizes[lab]}" for lab in labels_in]),
                 "excluded_groups": ",".join(excluded)
             })
-            # Dunn posthoc (optioneel)
+            # Dunn posthoc
             if _HAS_SCPH:
                 tmp = sub[sub["program"].astype(str).isin(labels_in)][["program","total_runtime_ms"]].copy()
                 dunn = sp.posthoc_dunn(tmp, val_col="total_runtime_ms", group_col="program", p_adjust="fdr_bh")
@@ -616,7 +593,7 @@ def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
                                                    B.loc[common,"total_runtime_ms"].values,
                                                    n_boot=5000, alpha=0.05, rng_seed=42)
         else:
-            # Unpaired (MWU) indien beide >= min_runs
+            # Unpaired (MWU)
             if n_std >= min_runs and n_no >= min_runs:
                 method = "mannwhitney"
                 stat, p = stats.mannwhitneyu(A["total_runtime_ms"].values,
@@ -634,17 +611,14 @@ def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
             "dataset": dataset, "program": str(program),
             "method": method, "stat": stat, "p_value": p,
             "n_std": n_std, "n_noopt": n_no, "n_paired": int(len(common)),
-            # Paired-only effect sizes (anders NaN)
             "wilcoxon_Z": Z, "wilcoxon_r": eff_r, "rank_biserial": rank_biserial,
-            # Unpaired-only effect sizes (anders NaN)
             "cliffs_delta": cliffs, "CLES": cles,
-            # HL schatters (beide gevallen) + 95% CI
             "HL_shift_ms": hl, "HL_CI_lo": ci_lo, "HL_CI_hi": ci_hi
         })
 
     df_between = pd.DataFrame(rows_pair)
 
-    # 3b) FDR-BH binnen elke dataset over alle between-variant p-waarden
+    # FDR-BH binnen elke dataset over alle between-variant p-waarden
     if not df_between.empty:
         df_between["p_fdr_bh_within_dataset"] = np.nan
         for ds, dsub in df_between.groupby("dataset"):
@@ -655,8 +629,7 @@ def run_stats_extended(df_runs: pd.DataFrame, out_dir: Path, min_runs: int = 5):
     df_between.to_csv(stats_dir / "between_variants.csv", index=False)
 
 
-# --------------------------------- main ----------------------------------
-
+# main 
 def main():
     ap = argparse.ArgumentParser(description="Analyze Soufflé JSON profiles.")
     ap.add_argument("--bench-dir", required=True, help="Directory containing *.json profiles")
@@ -709,7 +682,7 @@ def main():
     if not df_rules.empty:
         df_rules.to_csv(out_dir / "rules.csv", index=False)
 
-    # Plots (ONGEMOEID)
+    # Plots
     plots_dir = out_dir / "plots"
     plots_dir.mkdir(parents=True, exist_ok=True)
     plot_box_by_rewrite(df_runs, plots_dir)
@@ -720,10 +693,8 @@ def main():
     # Extra plot: memory
     plot_memory_box(df_runs, plots_dir)
 
-    # Uitgebreide statistiek (incl. HL/CI, FDR, transparantie, robuuste maten)
     run_stats_extended(df_runs, out_dir, min_runs=args.min_runs)
 
-    # Kleine samenvatting (laat ik bestaan; nu met sd/mean/iqr/mad in stats/summary_by_program.csv)
     summary = (df_runs
                .groupby(["dataset","variant","program"], as_index=False)
                .agg(n=("total_runtime_ms","count"),
